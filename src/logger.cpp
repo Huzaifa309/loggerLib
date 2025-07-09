@@ -6,7 +6,7 @@
 #include "quill/Backend.h"
 #include "quill/Frontend.h"
 #include "quill/sinks/FileSink.h"
-
+#include "quill/LogMacros.h""
 Logger::Logger() = default;
 
 Logger::Logger(const std::string& log_file) {
