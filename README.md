@@ -6,6 +6,7 @@ A C++ logging library that provides a clean, simple interface for logging with a
 
 - **Ultra-Fast Logging**: Direct variadic logging methods with zero stringstream overhead
 - **Clean Interface**: No Quill dependencies exposed to users
+- **Smart Log Rotation**: Automatic file rotation with timestamped filenames
 - Single logger instance for basic logging needs
 - Sharded logger wrapper for high-performance logging across multiple files
 - Automatic Quill C++ integration (vendored and hidden)
@@ -63,8 +64,8 @@ sudo make install
 #include "logger.h"
 
 int main() {
-    // Create a logger
-    Logger logger("my_app.log");
+    // Create a logger with 10MB rotation
+    Logger logger("my_app.log", 10 * 1024 * 1024);
     
     // Log messages
     logger.info("Application started");
@@ -100,6 +101,27 @@ int main() {
     return 0;
 }
 ```
+
+### Log Rotation
+
+The library supports automatic log rotation with configurable file sizes:
+
+```cpp
+// Create logger with 1MB rotation
+Logger logger("app.log", 1024 * 1024);
+
+// Create logger with 100MB rotation  
+Logger logger("app.log", 100 * 1024 * 1024);
+
+// Create logger without rotation
+Logger logger("app.log", 0);
+```
+
+When rotation occurs, files are renamed with timestamps:
+- `app.log` - Current log file
+- `app_20250710_164300.1.log` - First rotated file (July 10, 2025 at 16:43:00)
+- `app_20250710_164126.2.log` - Second rotated file
+- etc.
 
 ### Performance
 
@@ -159,6 +181,12 @@ g++ -o myapp myapp.cpp -L/path/to/lib -lloggerlib -lpthread
 
 ## Generated Files
 
+### Basic Logger
+When using the basic logger with rotation:
+- `app.log` - Current log file
+- `app_YYYYMMDD_HHMMSS.1.log` - Rotated files with timestamps
+
+### Sharded Logger
 When using the sharded logger, the following files are created:
 - `{prefix}_shard_0.log` - First shard log file
 - `{prefix}_shard_1.log` - Second shard log file
@@ -172,6 +200,13 @@ Log entries follow this format:
 [2025-07-10 15:39:20.020] [INFO] [12718] [example.log] Your message here
 ```
 
+Components:
+- `[2025-07-10 15:39:20.020]` - Timestamp with milliseconds
+- `[INFO]` - Log level (DEBUG, INFO, WARNING, ERROR)
+- `[12718]` - Process ID
+- `[example.log]` - Logger name (filename)
+- `Your message here` - The actual log message
+
 ## Build Output
 
 The build process generates:
@@ -181,12 +216,16 @@ The build process generates:
 ## Key Benefits
 
 1. **Ultra-Fast Logging**: Direct variadic logging, no stringstream overhead
-2. **No Quill Dependencies**: Users never need to include or know about Quill
-3. **Simple Interface**: Clean, straightforward logging API
-4. **Vendored Dependencies**: Everything is self-contained
-5. **Thread-Safe**: Built on Quill's thread-safe foundation
-6. **High Performance**: Leverages Quill's asynchronous logging
+2. **Smart Rotation**: Automatic file rotation with timestamped filenames
+3. **No Quill Dependencies**: Users never need to include or know about Quill
+4. **Simple Interface**: Clean, straightforward logging API
+5. **Vendored Dependencies**: Everything is self-contained
+6. **Thread-Safe**: Built on Quill's thread-safe foundation
+7. **High Performance**: Leverages Quill's asynchronous logging
+8. **Configurable**: Easy to adjust rotation sizes and other settings
 
-## License
+## Recent Improvements
 
-[Add your license information here] 
+- **Fixed Log Rotation**: Improved rotation behavior with proper timestamped filenames
+- **Better File Naming**: Rotated files now include creation timestamps for easy identification
+- **Proper Configuration**: Updated Quill integration for optimal performance and reliability

@@ -17,7 +17,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
-include_directories(${CMAKE_SOURCE_DIR}/third_party/quill/quill/include)
+#include_directories(${CMAKE_SOURCE_DIR}/third_party/quill/quill/include)
 
 # Vendor Quill C++
 include(FetchContent)
@@ -52,7 +52,7 @@ set_target_properties(loggerlib PROPERTIES
 )
 
 # Link against Quill
-target_link_libraries(loggerlib PRIVATE quill::quill)
+target_link_libraries(loggerlib PUBLIC quill::quill)
 
 # Include directories for the library
 target_include_directories(loggerlib PUBLIC
@@ -89,12 +89,12 @@ install(FILES
 )
 
 # Create a simple example if requested
-option(BUILD_EXAMPLE "Build example" OFF)
+option(BUILD_EXAMPLE "Build example" ON)
 if(BUILD_EXAMPLE)
     add_executable(example example/main.cpp)
     target_link_libraries(example loggerlib)
     target_include_directories(example PRIVATE
         ${CMAKE_SOURCE_DIR}/include
-        ${CMAKE_SOURCE_DIR}/third_party/quill/quill/include
+        #${CMAKE_SOURCE_DIR}/third_party/quill/quill/include
     )
 endif() 

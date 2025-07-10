@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/huzaifa/loggerLib/include -I/home/huzaifa/loggerLib/third_party/quill/quill/include
 
-CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17 -Wno-gnu-zero-variadic-macro-arguments
 
