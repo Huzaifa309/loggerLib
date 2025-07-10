@@ -4,30 +4,9 @@
 CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.cpp \
   /home/huzaifa/loggerLib/include/logger.h \
   /home/huzaifa/loggerLib/include/loggerwrapper.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/LogMacros.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/Logger.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/UserClockSource.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/bundled/fmt/core.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Attributes.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/BoundedSPSCQueue.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Codec.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Common.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/DynamicFormatArgStore.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/FrontendOptions.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/LogLevel.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/LoggerBase.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/MacroMetadata.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/MathUtils.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/QuillError.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Rdtsc.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/ThreadContextManager.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/ThreadUtilities.h \
-  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/UnboundedSPSCQueue.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
-  /usr/include/assert.h \
-  /usr/include/c++/13/atomic \
   /usr/include/c++/13/backward/auto_ptr.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
@@ -79,9 +58,8 @@ CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.
   /usr/include/c++/13/bits/shared_ptr.h \
   /usr/include/c++/13/bits/shared_ptr_atomic.h \
   /usr/include/c++/13/bits/shared_ptr_base.h \
+  /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
-  /usr/include/c++/13/bits/std_mutex.h \
-  /usr/include/c++/13/bits/std_thread.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
@@ -94,19 +72,15 @@ CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
-  /usr/include/c++/13/bits/stream_iterator.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
   /usr/include/c++/13/bits/stringfwd.h \
-  /usr/include/c++/13/bits/this_thread_sleep.h \
-  /usr/include/c++/13/bits/unique_lock.h \
   /usr/include/c++/13/bits/unique_ptr.h \
   /usr/include/c++/13/bits/uses_allocator.h \
   /usr/include/c++/13/bits/uses_allocator_args.h \
   /usr/include/c++/13/bits/utility.h \
   /usr/include/c++/13/bits/vector.tcc \
-  /usr/include/c++/13/cassert \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/chrono \
@@ -115,7 +89,6 @@ CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
-  /usr/include/c++/13/cstring \
   /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
@@ -134,22 +107,20 @@ CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
-  /usr/include/c++/13/iterator \
   /usr/include/c++/13/limits \
   /usr/include/c++/13/memory \
-  /usr/include/c++/13/mutex \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
   /usr/include/c++/13/pstl/execution_defs.h \
   /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/ratio \
+  /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
   /usr/include/c++/13/string \
   /usr/include/c++/13/string_view \
   /usr/include/c++/13/system_error \
-  /usr/include/c++/13/thread \
   /usr/include/c++/13/tuple \
   /usr/include/c++/13/type_traits \
   /usr/include/c++/13/typeinfo \
@@ -159,7 +130,6 @@ CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.
   /usr/include/errno.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
-  /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
   /usr/include/locale.h \
   /usr/include/pthread.h \
@@ -168,36 +138,21 @@ CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
-  /usr/include/string.h \
-  /usr/include/strings.h \
   /usr/include/time.h \
-  /usr/include/unistd.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
   /usr/include/x86_64-linux-gnu/asm/errno.h \
-  /usr/include/x86_64-linux-gnu/asm/unistd.h \
-  /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
   /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
   /usr/include/x86_64-linux-gnu/bits/byteswap.h \
-  /usr/include/x86_64-linux-gnu/bits/confname.h \
   /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
   /usr/include/x86_64-linux-gnu/bits/endian.h \
   /usr/include/x86_64-linux-gnu/bits/endianness.h \
-  /usr/include/x86_64-linux-gnu/bits/environments.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
   /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
   /usr/include/x86_64-linux-gnu/bits/floatn.h \
-  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
-  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
   /usr/include/x86_64-linux-gnu/bits/locale.h \
   /usr/include/x86_64-linux-gnu/bits/long-double.h \
-  /usr/include/x86_64-linux-gnu/bits/mman-linux.h \
-  /usr/include/x86_64-linux-gnu/bits/mman-map-flags-generic.h \
-  /usr/include/x86_64-linux-gnu/bits/mman-shared.h \
-  /usr/include/x86_64-linux-gnu/bits/mman.h \
-  /usr/include/x86_64-linux-gnu/bits/mman_ext.h \
-  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
   /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
@@ -216,11 +171,8 @@ CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.
   /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib.h \
-  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
-  /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
   /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
   /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
-  /usr/include/x86_64-linux-gnu/bits/syscall.h \
   /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/time64.h \
@@ -253,9 +205,6 @@ CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/typesizes.h \
   /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
-  /usr/include/x86_64-linux-gnu/bits/unistd-decl.h \
-  /usr/include/x86_64-linux-gnu/bits/unistd.h \
-  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
@@ -277,52 +226,12 @@ CMakeFiles/example.dir/example/main.cpp.o: /home/huzaifa/loggerLib/example/main.
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
-  /usr/include/x86_64-linux-gnu/sys/mman.h \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
-  /usr/include/x86_64-linux-gnu/sys/syscall.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/adxintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/bmi2intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/bmiintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/cetintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/cldemoteintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/clflushoptintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/clwbintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/clzerointrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/cmpccxaddintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/enqcmdintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/fxsrintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/hresetintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/ia32intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/lwpintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/lzcntintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/movdirintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/mwaitintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/mwaitxintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/pconfigintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/pkuintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/popcntintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/prfchiintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/raointintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/rdseedintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/rtmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/serializeintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/sgxintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/tbmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/tsxldtrkintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/uintrintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/waitpkgintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/wbnoinvdintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/x86gprintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xsavecintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xsaveintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xsaveoptintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xsavesintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xtestintrin.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
 bin/example: /lib/x86_64-linux-gnu/libc.so.6 \
   /lib/x86_64-linux-gnu/libm.so.6 \
@@ -344,682 +253,500 @@ bin/example: /lib/x86_64-linux-gnu/libc.so.6 \
   lib/libloggerlib.a
 
 
-lib/libloggerlib.a:
+/usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so:
 
-/usr/include/stdint.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a:
 
-/usr/include/locale.h:
+/usr/lib/x86_64-linux-gnu/libm.so:
 
-/usr/include/features.h:
+/usr/lib/x86_64-linux-gnu/libgcc_s.so.1:
 
-/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
+/usr/lib/x86_64-linux-gnu/libc.so:
 
-/usr/include/features-time64.h:
+/usr/lib/x86_64-linux-gnu/crtn.o:
 
-/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+/lib64/ld-linux-x86-64.so.2:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/mwaitxintrin.h:
+/lib/x86_64-linux-gnu/libmvec.so.1:
 
-/usr/include/c++/13/typeinfo:
+/lib/x86_64-linux-gnu/libm.so.6:
 
-/usr/include/c++/13/bits/chrono.h:
+/lib/x86_64-linux-gnu/libc.so.6:
 
-/usr/include/c++/13/streambuf:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/xtestintrin.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
-/usr/include/c++/13/bits/new_allocator.h:
+/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
-/usr/include/c++/13/ratio:
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
 
-/usr/include/c++/13/pstl/execution_defs.h:
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
-/usr/include/c++/13/pstl/glue_memory_defs.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h:
 
-/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
 
-/usr/include/c++/13/memory:
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
 
-/usr/include/c++/13/istream:
+/usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
-/usr/include/c++/13/iostream:
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h:
 
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/BoundedSPSCQueue.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/movdirintrin.h:
+/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
-/usr/include/errno.h:
+/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
-/usr/include/c++/13/ext/concurrence.h:
+/usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/cmpccxaddintrin.h:
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
-/usr/include/c++/13/limits:
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/rdseedintrin.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
 
-/usr/include/c++/13/ext/atomicity.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
 
-/usr/include/c++/13/cwctype:
+/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
 
-/usr/include/c++/13/bits/postypes.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
-/usr/include/c++/13/cstring:
+/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
-/usr/include/c++/13/stdexcept:
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
-/usr/include/c++/13/cstdlib:
+/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/cldemoteintrin.h:
+/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
-/usr/include/c++/13/ctime:
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
+/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
-/usr/include/c++/13/clocale:
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
-/usr/include/c++/13/iterator:
+/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
-/usr/include/c++/13/bits/locale_classes.tcc:
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
-/usr/include/c++/13/bits/vector.tcc:
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
-/usr/include/c++/13/cstdint:
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
-/usr/include/c++/13/thread:
+/usr/include/x86_64-linux-gnu/bits/types.h:
 
-/usr/include/c++/13/bits/stl_bvector.h:
+/usr/include/x86_64-linux-gnu/bits/timex.h:
 
-/usr/include/x86_64-linux-gnu/bits/mman-linux.h:
+/usr/include/x86_64-linux-gnu/bits/time.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdlib.h:
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/pconfigintrin.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/crtendS.o:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 /usr/include/c++/13/bits/unique_ptr.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/serializeintrin.h:
-
-/usr/include/sched.h:
-
-/usr/include/c++/13/bits/unique_lock.h:
-
-/usr/include/c++/13/bits/this_thread_sleep.h:
+/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 
 /usr/include/c++/13/bits/stringfwd.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/clwbintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/ia32intrin.h:
+lib/libloggerlib.a:
 
 /usr/include/c++/13/bits/streambuf_iterator.h:
 
 /usr/include/c++/13/bits/streambuf.tcc:
 
-/usr/include/c++/13/tuple:
+/usr/include/c++/13/bits/stl_raw_storage_iter.h:
 
-/usr/include/pthread.h:
-
-/usr/include/x86_64-linux-gnu/sys/types.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/fxsrintrin.h:
-
-/usr/include/c++/13/ext/numeric_traits.h:
-
-/usr/include/x86_64-linux-gnu/bits/mman-map-flags-generic.h:
-
-/usr/include/c++/13/bits/stl_uninitialized.h:
-
-/usr/include/c++/13/vector:
-
-/usr/include/x86_64-linux-gnu/bits/byteswap.h:
-
-/usr/include/c++/13/pstl/pstl_config.h:
-
-/usr/include/c++/13/bits/utility.h:
-
-/usr/include/c++/13/bits/stl_construct.h:
-
-/usr/include/c++/13/ext/string_conversions.h:
-
-/usr/include/c++/13/bits/range_access.h:
-
-/usr/include/c++/13/bits/stl_algobase.h:
-
-/usr/include/c++/13/ostream:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/LogMacros.h:
-
-/usr/include/c++/13/bits/cxxabi_init_exception.h:
-
-/usr/include/c++/13/bits/basic_ios.h:
-
-/usr/include/c++/13/bits/std_mutex.h:
-
-/usr/include/c++/13/bits/stl_function.h:
-
-/usr/include/c++/13/bits/std_abs.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
-
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+/usr/include/c++/13/bits/allocator.h:
 
 /usr/include/c++/13/bits/string_view.tcc:
 
 /usr/include/c++/13/bits/localefwd.h:
 
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/ThreadUtilities.h:
+/usr/include/c++/13/bits/stl_bvector.h:
 
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Attributes.h:
+/usr/include/c++/13/bits/stl_algobase.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/xsavesintrin.h:
+/usr/include/x86_64-linux-gnu/sys/select.h:
 
-/usr/include/c++/13/backward/binders.h:
+/usr/include/c++/13/ext/string_conversions.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+/usr/include/c++/13/bits/stl_iterator_base_funcs.h:
 
-/usr/include/c++/13/system_error:
+/usr/include/c++/13/bits/shared_ptr_base.h:
 
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
+/usr/include/c++/13/bits/move.h:
 
-/usr/include/c++/13/bits/shared_ptr_atomic.h:
+/usr/include/x86_64-linux-gnu/bits/stdio2-decl.h:
 
-/usr/include/c++/13/bits/concept_check.h:
-
-/usr/include/c++/13/bits/atomic_lockfree_defines.h:
-
-/usr/include/c++/13/initializer_list:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/ThreadContextManager.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Codec.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Rdtsc.h:
-
-/usr/include/c++/13/cerrno:
-
-/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
-
-/usr/include/c++/13/bits/allocated_ptr.h:
-
-/usr/include/c++/13/bits/alloc_traits.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/DynamicFormatArgStore.h:
-
-/usr/include/c++/13/atomic:
-
-/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/UserClockSource.h:
-
-/usr/include/c++/13/bits/shared_ptr.h:
-
-/usr/include/c++/13/debug/assertions.h:
-
-/usr/include/c++/13/backward/auto_ptr.h:
-
-/usr/include/c++/13/string_view:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/UnboundedSPSCQueue.h:
-
-/usr/include/c++/13/debug/debug.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/lwpintrin.h:
-
-/usr/include/stdio.h:
-
-/usr/include/c++/13/bits/hash_bytes.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/adxintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
-
-/usr/include/c++/13/bits/locale_facets.h:
-
-/usr/lib/x86_64-linux-gnu/libc_nonshared.a:
-
-/usr/include/x86_64-linux-gnu/asm/errno.h:
-
-/usr/include/stdc-predef.h:
-
-/usr/include/c++/13/bits/atomic_base.h:
-
-/usr/include/x86_64-linux-gnu/bits/time64.h:
-
-/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/QuillError.h:
-
-/usr/include/c++/13/iosfwd:
-
-/usr/include/asm-generic/errno.h:
-
-/usr/include/c++/13/bits/stl_raw_storage_iter.h:
-
-/usr/include/c++/13/bits/allocator.h:
-
-/usr/include/c++/13/exception:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/LogLevel.h:
-
-/usr/include/c++/13/ext/type_traits.h:
-
-/usr/include/alloca.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/MathUtils.h:
-
-/usr/include/c++/13/cassert:
-
-/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
-
-/home/huzaifa/loggerLib/include/logger.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/Logger.h:
-
-/usr/include/c++/13/bits/functional_hash.h:
-
-/usr/include/c++/13/bits/stream_iterator.h:
-
-/usr/include/c++/13/bits/align.h:
-
-/usr/include/c++/13/bits/refwrap.h:
-
-/usr/include/c++/13/bits/exception_defines.h:
-
-/usr/include/c++/13/cstddef:
-
-/usr/include/c++/13/mutex:
-
-/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
-
-/usr/include/assert.h:
-
-/usr/include/endian.h:
-
-/usr/include/c++/13/bits/uses_allocator.h:
-
-/usr/include/c++/13/bits/basic_string.h:
+/usr/include/c++/13/bits/requires_hosted.h:
 
 /usr/include/c++/13/ios:
 
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/FrontendOptions.h:
+/usr/include/x86_64-linux-gnu/bits/stdio.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/mwaitintrin.h:
+/usr/include/c++/13/cstddef:
+
+/usr/include/c++/13/bits/range_access.h:
+
+/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
+
+/usr/include/c++/13/bits/uses_allocator.h:
+
+/usr/include/c++/13/bits/uses_allocator_args.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+
+/usr/include/c++/13/bits/predefined_ops.h:
+
+/usr/include/c++/13/bits/stl_construct.h:
+
+/usr/include/c++/13/bits/utility.h:
+
+/usr/lib/x86_64-linux-gnu/libc_nonshared.a:
+
+/usr/include/c++/13/bits/ostream_insert.h:
+
+/usr/include/c++/13/bits/nested_exception.h:
+
+/usr/include/c++/13/bits/memoryfwd.h:
+
+/usr/include/c++/13/bits/basic_string.tcc:
+
+/usr/include/c++/13/bits/stl_function.h:
+
+/usr/include/c++/13/bits/ostream.tcc:
+
+/usr/include/c++/13/bits/memory_resource.h:
+
+/usr/include/c++/13/bits/stl_iterator.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
+
+/usr/include/c++/13/bits/exception.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
+
+/usr/lib/x86_64-linux-gnu/crti.o:
+
+/usr/include/x86_64-linux-gnu/bits/select-decl.h:
+
+/usr/include/c++/13/bits/locale_facets.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/select2.h:
+
+/usr/include/c++/13/bits/stl_tempbuf.h:
+
+/usr/include/c++/13/bits/charconv.h:
+
+/usr/include/c++/13/bits/hash_bytes.h:
+
+/usr/include/c++/13/bits/basic_ios.h:
+
+/usr/include/c++/13/bit:
+
+/usr/include/c++/13/bits/functexcept.h:
+
+/usr/include/c++/13/ext/alloc_traits.h:
+
+/usr/include/c++/13/bits/allocated_ptr.h:
+
+/usr/include/c++/13/cerrno:
+
+/usr/include/c++/13/bits/align.h:
+
+/usr/include/c++/13/backward/auto_ptr.h:
+
+/usr/include/c++/13/bits/alloc_traits.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
+
+/home/huzaifa/loggerLib/include/loggerwrapper.h:
+
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+/usr/include/c++/13/system_error:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/c++/13/backward/binders.h:
+
+/usr/include/c++/13/bits/locale_facets.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
 
 /usr/include/c++/13/bits/parse_numbers.h:
 
 /usr/include/c++/13/bits/cpp_type_traits.h:
 
-/usr/include/x86_64-linux-gnu/bits/locale.h:
+/usr/include/x86_64-linux-gnu/bits/byteswap.h:
 
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/LoggerBase.h:
+/usr/include/c++/13/bits/stl_uninitialized.h:
 
-/usr/include/c++/13/bits/basic_ios.tcc:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/bundled/fmt/core.h:
-
-/usr/include/c++/13/chrono:
-
-/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
-
-/usr/include/c++/13/bits/basic_string.tcc:
-
-/home/huzaifa/loggerLib/example/main.cpp:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/rtmintrin.h:
-
-/usr/include/c++/13/bits/cxxabi_forced.h:
-
-/usr/include/c++/13/bits/locale_classes.h:
-
-/usr/include/c++/13/bits/stl_tempbuf.h:
-
-/usr/include/x86_64-linux-gnu/bits/select2.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/enqcmdintrin.h:
-
-/usr/include/c++/13/bits/charconv.h:
-
-/usr/include/c++/13/bits/exception_ptr.h:
-
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/lzcntintrin.h:
-
-/usr/include/c++/13/ext/alloc_traits.h:
-
-/usr/include/c++/13/bits/functexcept.h:
-
-/usr/include/x86_64-linux-gnu/bits/mman-shared.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o:
-
-/usr/include/c++/13/bits/ios_base.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
-
-/usr/include/c++/13/bits/locale_facets.tcc:
-
-/usr/include/linux/close_range.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/waitpkgintrin.h:
-
-/usr/include/c++/13/bits/stl_iterator_base_types.h:
-
-/usr/include/c++/13/bits/stl_iterator.h:
-
-/usr/include/c++/13/cstdio:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
-
-/usr/include/x86_64-linux-gnu/bits/select.h:
-
-/usr/include/c++/13/bits/memory_resource.h:
-
-/usr/include/ctype.h:
-
-/usr/include/c++/13/bits/nested_exception.h:
-
-/usr/include/c++/13/bits/stl_iterator_base_funcs.h:
-
-/usr/include/c++/13/bits/ostream_insert.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Common.h:
-
-/usr/include/c++/13/bits/char_traits.h:
-
-/usr/include/c++/13/bits/move.h:
-
-/usr/include/x86_64-linux-gnu/bits/string_fortified.h:
-
-/usr/include/c++/13/bits/shared_ptr_base.h:
-
-/usr/include/stdlib.h:
-
-/usr/include/x86_64-linux-gnu/bits/wchar2-decl.h:
-
-/usr/include/strings.h:
-
-/usr/include/c++/13/bit:
-
-/usr/include/time.h:
-
-/usr/include/c++/13/ext/aligned_buffer.h:
-
-/usr/include/unistd.h:
-
-/usr/include/wchar.h:
+/usr/include/c++/13/ext/numeric_traits.h:
 
 /usr/lib/x86_64-linux-gnu/Scrt1.o:
 
-/usr/include/wctype.h:
+/usr/include/wchar.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h:
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/clzerointrin.h:
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
-/usr/include/x86_64-linux-gnu/asm/unistd_64.h:
+/usr/include/c++/13/bits/std_abs.h:
 
-/usr/include/x86_64-linux-gnu/bits/confname.h:
+/usr/include/c++/13/debug/assertions.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdint-least.h:
+/usr/include/c++/13/bits/shared_ptr.h:
 
-/usr/include/x86_64-linux-gnu/bits/endian.h:
+/usr/include/c++/13/ext/type_traits.h:
 
-/usr/include/x86_64-linux-gnu/bits/environments.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
-
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
-
-/usr/include/c++/13/bits/memoryfwd.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a:
-
-/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
-
-/usr/include/x86_64-linux-gnu/bits/long-double.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
-
-/usr/include/x86_64-linux-gnu/bits/mman_ext.h:
-
-/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
-
-/usr/include/c++/13/bits/stl_vector.h:
-
-/usr/include/string.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/sched.h:
-
-/usr/lib/x86_64-linux-gnu/crti.o:
-
-/home/huzaifa/loggerLib/include/loggerwrapper.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
-
-/usr/include/x86_64-linux-gnu/bits/setjmp.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+/usr/include/asm-generic/errno.h:
 
 /usr/include/c++/13/cwchar:
 
-/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/crtendS.o:
-
-/usr/include/x86_64-linux-gnu/bits/syscall.h:
-
-/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
-
-/usr/include/x86_64-linux-gnu/bits/timex.h:
-
-/usr/include/c++/13/bits/ostream.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/types.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
-
-/usr/include/x86_64-linux-gnu/sys/syscall.h:
-
-/usr/include/c++/13/bits/stl_pair.h:
-
-/usr/include/c++/13/bits/std_thread.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
-
-/usr/include/c++/13/bits/ptr_traits.h:
-
-/usr/include/c++/13/bits/istream.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/unistd-decl.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
-
-CMakeFiles/example.dir/example/main.cpp.o:
-
-/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
-
-/usr/include/c++/13/new:
-
-/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
-
-/usr/include/c++/13/bits/invoke.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+/usr/include/c++/13/bits/basic_ios.tcc:
 
 /usr/include/asm-generic/errno-base.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/typesizes.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/bmiintrin.h:
-
-/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
-
-/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/popcntintrin.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio2-decl.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
-
-/usr/include/x86_64-linux-gnu/bits/unistd.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h:
-
-/usr/include/c++/13/bits/uses_allocator_args.h:
-
-/usr/include/x86_64-linux-gnu/bits/mman.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/xsavecintrin.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:
-
-/usr/include/x86_64-linux-gnu/sys/mman.h:
-
-/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
-
 /usr/include/c++/13/cctype:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/bmi2intrin.h:
+/usr/include/c++/13/vector:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/cetintrin.h:
+/usr/include/endian.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/clflushoptintrin.h:
+/usr/include/c++/13/bits/basic_string.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/hresetintrin.h:
+/usr/include/x86_64-linux-gnu/bits/time64.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
+/usr/include/c++/13/bits/stl_vector.h:
 
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/MacroMetadata.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/pkuintrin.h:
+/usr/include/x86_64-linux-gnu/sys/types.h:
 
-/usr/lib/x86_64-linux-gnu/crtn.o:
+/usr/include/c++/13/bits/ptr_traits.h:
 
-/usr/include/x86_64-linux-gnu/asm/unistd.h:
+/usr/include/pthread.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/prfchiintrin.h:
+/usr/include/c++/13/bits/shared_ptr_atomic.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/raointintrin.h:
+/usr/include/c++/13/bits/concept_check.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/sgxintrin.h:
+/usr/include/c++/13/bits/char_traits.h:
 
-/usr/include/c++/13/bits/requires_hosted.h:
+/usr/include/c++/13/bits/locale_classes.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/tbmintrin.h:
+/usr/include/ctype.h:
 
 /usr/include/linux/errno.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/tsxldtrkintrin.h:
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
-/usr/include/x86_64-linux-gnu/sys/select.h:
+/usr/include/c++/13/bits/exception_ptr.h:
 
-/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/uintrintrin.h:
+/home/huzaifa/loggerLib/include/logger.h:
 
-/usr/include/c++/13/type_traits:
+/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 
-/usr/include/c++/13/bits/exception.h:
+/usr/include/c++/13/bits/refwrap.h:
 
-/usr/include/c++/13/bits/predefined_ops.h:
+/usr/include/c++/13/bits/exception_defines.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/wbnoinvdintrin.h:
+/usr/include/c++/13/bits/functional_hash.h:
 
-/usr/lib/x86_64-linux-gnu/libc.so:
+/usr/include/c++/13/bits/atomic_lockfree_defines.h:
 
-/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+/usr/include/alloca.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/x86gprintrin.h:
+/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/xsaveintrin.h:
+/usr/include/c++/13/bits/invoke.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/xsaveoptintrin.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
 
-/lib/x86_64-linux-gnu/libc.so.6:
+/usr/include/c++/13/bits/ios_base.h:
 
-/usr/include/x86_64-linux-gnu/bits/time.h:
+/usr/include/c++/13/bits/cxxabi_forced.h:
 
-/lib/x86_64-linux-gnu/libm.so.6:
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
-/lib/x86_64-linux-gnu/libmvec.so.1:
+/usr/include/c++/13/bits/istream.tcc:
 
-/lib64/ld-linux-x86-64.so.2:
+/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/errno.h:
+/usr/include/c++/13/ext/aligned_buffer.h:
 
-/usr/lib/x86_64-linux-gnu/libgcc_s.so.1:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:
+
+/usr/include/c++/13/bits/stl_pair.h:
+
+/usr/include/c++/13/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/13/pstl/pstl_config.h:
+
+/usr/include/c++/13/cstdint:
+
+/usr/include/c++/13/bits/vector.tcc:
+
+/usr/include/c++/13/chrono:
+
+/usr/include/c++/13/bits/locale_classes.tcc:
+
+/usr/include/c++/13/clocale:
+
+/usr/include/c++/13/ctime:
+
+/usr/include/time.h:
+
+/usr/include/c++/13/cstdio:
+
+CMakeFiles/example.dir/example/main.cpp.o:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h:
+
+/usr/include/c++/13/cstdlib:
+
+/usr/include/c++/13/bits/postypes.h:
+
+/usr/include/c++/13/cwctype:
+
+/usr/include/c++/13/debug/debug.h:
+
+/usr/include/c++/13/exception:
+
+/usr/include/c++/13/ext/atomicity.h:
+
+/usr/include/c++/13/limits:
+
+/usr/include/stdio.h:
+
+/usr/include/c++/13/ext/concurrence.h:
+
+/usr/include/errno.h:
+
+/usr/include/c++/13/initializer_list:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/c++/13/iostream:
+
+/usr/include/c++/13/istream:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/c++/13/memory:
+
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+
+/usr/include/c++/13/pstl/glue_memory_defs.h:
+
+/usr/include/c++/13/bits/cxxabi_init_exception.h:
+
+/usr/include/c++/13/ostream:
+
+/usr/include/c++/13/pstl/execution_defs.h:
+
+/usr/include/c++/13/ratio:
+
+/usr/include/c++/13/bits/new_allocator.h:
+
+/usr/include/c++/13/stdexcept:
+
+/usr/include/c++/13/sstream:
+
+/usr/include/c++/13/streambuf:
+
+/usr/include/c++/13/bits/chrono.h:
+
+/home/huzaifa/loggerLib/example/main.cpp:
 
 /usr/include/c++/13/string:
 
-/usr/include/x86_64-linux-gnu/bits/select-decl.h:
+/usr/include/c++/13/typeinfo:
 
-/usr/lib/x86_64-linux-gnu/libm.so:
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+/usr/include/c++/13/string_view:
+
+/usr/include/c++/13/tuple:
+
+/usr/include/c++/13/type_traits:
+
+/usr/include/x86_64-linux-gnu/bits/wchar2-decl.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+
+/usr/include/features-time64.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
+
+/usr/include/features.h:
+
+/usr/include/locale.h:
+
+/usr/include/c++/13/iosfwd:
+
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
+
+/usr/include/sched.h:
+
+/usr/include/stdint.h:
+
+/usr/include/wctype.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+
+/usr/include/c++/13/bits/atomic_base.h:
+
+/usr/include/stdc-predef.h:
+
+/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/long-double.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
+
+/usr/include/x86_64-linux-gnu/bits/errno.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn.h:
+
+/usr/include/x86_64-linux-gnu/bits/locale.h:
+
+/usr/include/c++/13/bits/sstream.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/sched.h:
+
+/usr/include/c++/13/new:
+
+/usr/include/x86_64-linux-gnu/bits/select.h:
+
+/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-least.h:

@@ -161,4 +161,102 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/13/bits/charconv.h \
  /usr/include/c++/13/bits/basic_string.tcc \
- /home/huzaifa/loggerLib/include/logger.h
+ /home/huzaifa/loggerLib/include/logger.h /usr/include/c++/13/cstring \
+ /usr/include/string.h /usr/include/strings.h \
+ /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+ /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/Logger.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/UserClockSource.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Attributes.h \
+ /usr/include/c++/13/cstdint \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Codec.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/bundled/fmt/core.h \
+ /usr/include/c++/13/iterator /usr/include/c++/13/bits/stream_iterator.h \
+ /usr/include/c++/13/bits/streambuf_iterator.h \
+ /usr/include/c++/13/streambuf /usr/include/c++/13/bits/ios_base.h \
+ /usr/include/c++/13/bits/locale_classes.h \
+ /usr/include/c++/13/bits/locale_classes.tcc \
+ /usr/include/c++/13/system_error \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
+ /usr/include/c++/13/stdexcept /usr/include/c++/13/bits/streambuf.tcc \
+ /usr/include/c++/13/limits \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/DynamicFormatArgStore.h \
+ /usr/include/c++/13/cassert /usr/include/assert.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Common.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/FrontendOptions.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/LogLevel.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/QuillError.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/LoggerBase.h \
+ /usr/include/c++/13/atomic \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/MacroMetadata.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Rdtsc.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/x86gprintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/ia32intrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/adxintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/bmiintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/bmi2intrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/cetintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/cldemoteintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/clflushoptintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/clwbintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/clzerointrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/cmpccxaddintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/enqcmdintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/fxsrintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/lzcntintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/lwpintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/movdirintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/mwaitintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/mwaitxintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/pconfigintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/popcntintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/pkuintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/prfchiintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/raointintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/rdseedintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/rtmintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/serializeintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/sgxintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/tbmintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/tsxldtrkintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/uintrintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/waitpkgintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/wbnoinvdintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/xsaveintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/xsavecintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/xsaveoptintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/xsavesintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/xtestintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/hresetintrin.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/ThreadContextManager.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/BoundedSPSCQueue.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/MathUtils.h \
+ /usr/include/x86_64-linux-gnu/sys/mman.h \
+ /usr/include/x86_64-linux-gnu/bits/mman.h \
+ /usr/include/x86_64-linux-gnu/bits/mman-map-flags-generic.h \
+ /usr/include/x86_64-linux-gnu/bits/mman-linux.h \
+ /usr/include/x86_64-linux-gnu/bits/mman-shared.h \
+ /usr/include/x86_64-linux-gnu/bits/mman_ext.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/ThreadUtilities.h \
+ /usr/include/x86_64-linux-gnu/sys/syscall.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
+ /usr/include/x86_64-linux-gnu/bits/syscall.h /usr/include/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/include/x86_64-linux-gnu/bits/environments.h \
+ /usr/include/x86_64-linux-gnu/bits/confname.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
+ /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd-decl.h \
+ /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
+ /usr/include/linux/close_range.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/UnboundedSPSCQueue.h \
+ /usr/include/c++/13/mutex /usr/include/c++/13/bits/chrono.h \
+ /usr/include/c++/13/ratio /usr/include/c++/13/ctime \
+ /usr/include/c++/13/bits/parse_numbers.h \
+ /usr/include/c++/13/bits/std_mutex.h \
+ /usr/include/c++/13/bits/unique_lock.h /usr/include/c++/13/chrono \
+ /usr/include/c++/13/thread /usr/include/c++/13/bits/std_thread.h \
+ /usr/include/c++/13/bits/this_thread_sleep.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/LogMacros.h

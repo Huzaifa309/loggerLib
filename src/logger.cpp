@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <iostream>
+#include <sstream>
 
 #include "quill/Backend.h"
 #include "quill/Frontend.h"
@@ -81,3 +82,7 @@ void Logger::debug(const std::string& message) {
         LOG_DEBUG(quill_logger, "{}", message);
     }
 }
+
+// All fast_concat overloads removed. Only non-template, non-fast_concat functions remain.
+
+

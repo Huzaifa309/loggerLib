@@ -63,3 +63,5 @@ void LoggerWrapper::debug_msg(const std::string& message) {
         shard_loggers_.back()->debug(message);
     }
 }
+
+
