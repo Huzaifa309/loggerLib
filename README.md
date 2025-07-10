@@ -4,6 +4,7 @@ A C++ logging library that provides a clean, simple interface for logging with a
 
 ## Features
 
+- **Ultra-Fast Logging**: Direct variadic logging methods with zero stringstream overhead
 - **Clean Interface**: No Quill dependencies exposed to users
 - Single logger instance for basic logging needs
 - Sharded logger wrapper for high-performance logging across multiple files
@@ -71,53 +72,53 @@ int main() {
     logger.error("An error occurred");
     logger.debug("Debug information");
     
+    // Ultra-fast logging (no stringstream, direct variadic)
+    logger.info_fast("User ", "alice", " logged in at ", 1234567890);
+    logger.warn_fast("Low disk space: ", 42, "% remaining");
+    logger.error_fast("Failed to open file: ", "/tmp/data.txt");
+    logger.debug_fast("Debug: x=", 42, " y=", 3.14);
     return 0;
 }
 ```
 
-### Formatted Logging
-
-```cpp
-#include "logger.h"
-#include <sstream>
-
-int main() {
-    Logger logger("my_app.log");
-    
-    // Format messages using string streams
-    std::ostringstream oss;
-    oss << "Processing request: " << request_id;
-    logger.info(oss.str());
-    
-    oss.str("");
-    oss.clear();
-    oss << "User " << username << " attempted " << attempts << " times";
-    logger.warn(oss.str());
-    
-    return 0;
-}
-```
-
-### Sharded Logging
+### Sharded Logging (Ultra-Fast)
 
 ```cpp
 #include "loggerwrapper.h"
-#include <sstream>
 
 int main() {
     // Create a sharded logger with 3 shards
     LoggerWrapper wrapper(3, "my_app");
     
-    // Log to different shards
+    // Log to different shards (ultra-fast)
     for (uint8_t i = 0; i < 3; ++i) {
-        std::ostringstream oss;
-        oss << "Message from shard " << static_cast<int>(i);
-        wrapper.info(i, oss.str());
+        wrapper.info_fast(i, "Shard ", static_cast<int>(i), " processed batch ", 100 + i);
     }
     
-    // Log to messaging shard
-    wrapper.info_msg("Messaging log entry");
-    
+    // Log to messaging shard (ultra-fast)
+    wrapper.info_msg_fast("Received message from user: ", "bob");
+    return 0;
+}
+```
+
+### Performance
+
+Ultra-fast logging methods (`info_fast`, `warn_fast`, etc.) avoid all stringstream overhead and use direct string concatenation. This provides a significant speedup for high-frequency logging scenarios.
+
+**Example performance test:**
+```cpp
+#include "logger.h"
+#include <chrono>
+
+int main() {
+    Logger logger("perf.log");
+    auto start = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < 10000; ++i) {
+        logger.info_fast("Processing request: ", i, " with data: ", "data", i);
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    std::cout << "Ultra-fast logging: " << duration.count() << " microseconds for 10,000 logs" << std::endl;
     return 0;
 }
 ```
@@ -179,11 +180,12 @@ The build process generates:
 
 ## Key Benefits
 
-1. **No Quill Dependencies**: Users never need to include or know about Quill
-2. **Simple Interface**: Clean, straightforward logging API
-3. **Vendored Dependencies**: Everything is self-contained
-4. **Thread-Safe**: Built on Quill's thread-safe foundation
-5. **High Performance**: Leverages Quill's asynchronous logging
+1. **Ultra-Fast Logging**: Direct variadic logging, no stringstream overhead
+2. **No Quill Dependencies**: Users never need to include or know about Quill
+3. **Simple Interface**: Clean, straightforward logging API
+4. **Vendored Dependencies**: Everything is self-contained
+5. **Thread-Safe**: Built on Quill's thread-safe foundation
+6. **High Performance**: Leverages Quill's asynchronous logging
 
 ## License
 
