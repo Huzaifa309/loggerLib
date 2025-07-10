@@ -1,0 +1,4 @@
+[2025-07-10 15:45:29.459 ] [INFO] [12957] [sharded_example_shard_0.log] Message from shard 0
+[2025-07-10 15:45:29.459 ] [INFO] [12957] [sharded_example_shard_0.log] Processing shard 0 with data: data0
+[2025-07-10 15:47:03.118 ] [INFO] [13104] [sharded_example_shard_0.log] Message from shard 0
+[2025-07-10 15:47:03.118 ] [INFO] [13104] [sharded_example_shard_0.log] Processing shard 0 with data: data0

@@ -6,12 +6,15 @@
 #include "quill/Backend.h"
 #include "quill/Frontend.h"
 #include "quill/sinks/FileSink.h"
-#include "quill/LogMacros.h""
+#include "quill/LogMacros.h"
+
 Logger::Logger() = default;
 
 Logger::Logger(const std::string& log_file) {
     initialize(log_file);
 }
+
+Logger::~Logger() = default;
 
 void Logger::initialize(const std::string& log_file) {
     static bool backend_started = false;
@@ -35,22 +38,46 @@ void Logger::initialize(const std::string& log_file) {
         );
 
         // Create logger
-        logger_ = quill::Frontend::create_or_get_logger(
+        auto* quill_logger = quill::Frontend::create_or_get_logger(
             log_file,
             file_sink,
-            quill::PatternFormatterOptions{
-                "[%(time)] [%(log_level)] [%(process_id)] [%(logger)] %(message)",
-                "%Y-%m-%d %H:%M:%S.%Qms ",
-                quill::Timezone::LocalTime
-            }
+            "[%(time)] [%(log_level)] [%(process_id)] [%(logger)] %(message)",
+            "%Y-%m-%d %H:%M:%S.%Qms ",
+            quill::Timezone::LocalTime
         );
 
-        logger_->set_log_level(quill::LogLevel::Debug);
+        quill_logger->set_log_level(quill::LogLevel::Debug);
+        logger_ = static_cast<void*>(quill_logger);
     } catch (const std::exception& ex) {
         std::cerr << "Log initialization failed: " << ex.what() << std::endl;
     }
 }
 
-quill::Logger* Logger::get_logger() const {
-    return logger_;
+// Clean interface implementations
+void Logger::info(const std::string& message) {
+    if (logger_) {
+        auto* quill_logger = static_cast<quill::Logger*>(logger_);
+        LOG_INFO(quill_logger, "{}", message);
+    }
+}
+
+void Logger::warn(const std::string& message) {
+    if (logger_) {
+        auto* quill_logger = static_cast<quill::Logger*>(logger_);
+        LOG_WARNING(quill_logger, "{}", message);
+    }
+}
+
+void Logger::error(const std::string& message) {
+    if (logger_) {
+        auto* quill_logger = static_cast<quill::Logger*>(logger_);
+        LOG_ERROR(quill_logger, "{}", message);
+    }
+}
+
+void Logger::debug(const std::string& message) {
+    if (logger_) {
+        auto* quill_logger = static_cast<quill::Logger*>(logger_);
+        LOG_DEBUG(quill_logger, "{}", message);
+    }
 }

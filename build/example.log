@@ -1,0 +1,10 @@
+[2025-07-10 15:26:44.392 ] [INFO] [11917] [example.log] Hello from single logger!
+[2025-07-10 15:26:44.392 ] [WARNING] [11917] [example.log] This is a warning message
+[2025-07-10 15:26:44.392 ] [ERROR] [11917] [example.log] This is an error message
+[2025-07-10 15:39:20.019 ] [INFO] [12718] [example.log] Hello from single logger!
+[2025-07-10 15:39:20.020 ] [WARNING] [12718] [example.log] This is a warning message
+[2025-07-10 15:39:20.020 ] [ERROR] [12718] [example.log] This is an error message
+[2025-07-10 15:39:20.020 ] [DEBUG] [12718] [example.log] This is a debug message
+[2025-07-10 15:39:20.020 ] [INFO] [12718] [example.log] Processing request: REQ123
+[2025-07-10 15:39:20.020 ] [WARNING] [12718] [example.log] User john attempted 5 times
+[2025-07-10 15:39:20.020 ] [ERROR] [12718] [example.log] Failed to connect to localhost:8080

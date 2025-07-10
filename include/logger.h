@@ -1,17 +1,22 @@
 #pragma once
 
 #include <string>
-#include "quill/Logger.h"
 
 class Logger {
 public:
     Logger();
     explicit Logger(const std::string& log_file);
+    ~Logger();
 
     void initialize(const std::string& log_file);
-    quill::Logger* get_logger() const;
+    
+    // Clean interface methods that don't expose Quill types
+    void info(const std::string& message);
+    void warn(const std::string& message);
+    void error(const std::string& message);
+    void debug(const std::string& message);
 
 private:
-    quill::Logger* logger_ = nullptr;
+    void* logger_ = nullptr; // Hide Quill logger completely
 };
 

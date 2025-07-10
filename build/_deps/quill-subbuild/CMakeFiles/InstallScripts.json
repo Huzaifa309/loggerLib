@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/huzaifa/loggerLib/build/_deps/quill-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
