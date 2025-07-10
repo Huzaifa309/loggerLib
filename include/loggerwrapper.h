@@ -8,7 +8,7 @@
 class LoggerWrapper {
 public:
     LoggerWrapper();
-    LoggerWrapper(uint8_t shard_count, const std::string& log_file_prefix);
+    LoggerWrapper(uint8_t shard_count, const std::string& log_file_prefix, size_t max_file_size = 0);
     ~LoggerWrapper();
 
     // Clean interface methods

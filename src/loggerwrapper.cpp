@@ -2,14 +2,14 @@
 
 LoggerWrapper::LoggerWrapper() = default;
 
-LoggerWrapper::LoggerWrapper(uint8_t shard_count, const std::string& log_file_prefix)
+LoggerWrapper::LoggerWrapper(uint8_t shard_count, const std::string& log_file_prefix, size_t max_file_size)
 {
     for (uint8_t shard_id = 0; shard_id < shard_count; ++shard_id) {
         std::string shard_log_file = log_file_prefix + "_shard_" + std::to_string(shard_id) + ".log";
-        shard_loggers_.emplace_back(std::make_unique<Logger>(shard_log_file));
+        shard_loggers_.emplace_back(std::make_unique<Logger>(shard_log_file, max_file_size));
     }
     // One extra for messaging
-    shard_loggers_.emplace_back(std::make_unique<Logger>(log_file_prefix + "_messaging.log"));
+    shard_loggers_.emplace_back(std::make_unique<Logger>(log_file_prefix + "_messaging.log", max_file_size));
 }
 
 LoggerWrapper::~LoggerWrapper() = default;

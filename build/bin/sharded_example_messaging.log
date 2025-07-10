@@ -1,4 +1,0 @@
-[2025-07-10 15:45:29.459 ] [INFO] [12957] [sharded_example_messaging.log] This is a messaging log entry
-[2025-07-10 15:45:29.459 ] [INFO] [12957] [sharded_example_messaging.log] Received message from user: alice
-[2025-07-10 15:47:03.118 ] [INFO] [13104] [sharded_example_messaging.log] This is a messaging log entry
-[2025-07-10 15:47:03.118 ] [INFO] [13104] [sharded_example_messaging.log] Received message from user: alice

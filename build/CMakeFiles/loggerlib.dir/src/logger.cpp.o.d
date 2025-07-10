@@ -382,4 +382,7 @@ CMakeFiles/loggerlib.dir/src/logger.cpp.o: \
  /usr/include/c++/13/bits/fs_path.h /usr/include/c++/13/iomanip \
  /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/codecvt \
  /usr/include/c++/13/bits/fs_dir.h /usr/include/c++/13/bits/fs_ops.h \
- /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/sinks/StreamSink.h
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/sinks/StreamSink.h \
+ /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/sinks/RotatingFileSink.h \
+ /usr/include/c++/13/deque /usr/include/c++/13/bits/stl_deque.h \
+ /usr/include/c++/13/bits/deque.tcc

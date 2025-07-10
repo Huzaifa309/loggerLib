@@ -45,6 +45,7 @@ CMakeFiles/loggerlib.dir/src/logger.cpp.o: /home/huzaifa/loggerLib/src/logger.cp
   /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/UnboundedSPSCQueue.h \
   /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/filters/Filter.h \
   /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/sinks/FileSink.h \
+  /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/sinks/RotatingFileSink.h \
   /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/sinks/Sink.h \
   /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/sinks/StreamSink.h \
   /usr/include/alloca.h \
@@ -76,6 +77,7 @@ CMakeFiles/loggerlib.dir/src/logger.cpp.o: /home/huzaifa/loggerLib/src/logger.cp
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
   /usr/include/c++/13/bits/cxxabi_init_exception.h \
+  /usr/include/c++/13/bits/deque.tcc \
   /usr/include/c++/13/bits/enable_special_members.h \
   /usr/include/c++/13/bits/erase_if.h \
   /usr/include/c++/13/bits/exception.h \
@@ -130,6 +132,7 @@ CMakeFiles/loggerlib.dir/src/logger.cpp.o: /home/huzaifa/loggerLib/src/logger.cp
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
   /usr/include/c++/13/bits/stl_construct.h \
+  /usr/include/c++/13/bits/stl_deque.h \
   /usr/include/c++/13/bits/stl_function.h \
   /usr/include/c++/13/bits/stl_heap.h \
   /usr/include/c++/13/bits/stl_iterator.h \
@@ -180,6 +183,7 @@ CMakeFiles/loggerlib.dir/src/logger.cpp.o: /home/huzaifa/loggerLib/src/logger.cp
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
   /usr/include/c++/13/debug/debug.h \
+  /usr/include/c++/13/deque \
   /usr/include/c++/13/exception \
   /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
@@ -898,15 +902,9 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
+/usr/include/x86_64-linux-gnu/bits/timex.h:
 
-/usr/include/c++/13/clocale:
-
-/usr/include/c++/13/cmath:
-
-/usr/include/c++/13/bits/locale_classes.tcc:
-
-/usr/include/c++/13/iterator:
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
@@ -915,8 +913,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 /usr/include/c++/13/bits/unique_ptr.h:
 
 /usr/include/c++/13/bits/unique_lock.h:
-
-/usr/include/c++/13/bits/this_thread_sleep.h:
 
 /usr/include/c++/13/bits/stringfwd.h:
 
@@ -937,6 +933,10 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 /usr/include/x86_64-linux-gnu/bits/sigthread.h:
 
 /usr/include/c++/13/bits/stl_multimap.h:
+
+/usr/include/c++/13/bits/this_thread_sleep.h:
+
+/usr/include/c++/13/unordered_map:
 
 /usr/include/c++/13/bits/utility.h:
 
@@ -1002,6 +1002,12 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/c++/13/bits/locale_conv.h:
 
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+/usr/include/c++/13/clocale:
+
+/usr/include/c++/13/iterator:
+
 /usr/include/c++/13/bits/ios_base.h:
 
 /usr/include/c++/13/bits/vector.tcc:
@@ -1023,6 +1029,18 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 /usr/include/c++/13/bits/fs_dir.h:
 
 /usr/include/c++/13/bits/exception_ptr.h:
+
+/usr/include/c++/13/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/13/bits/stl_iterator.h:
+
+/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/TimeUtilities.h:
+
+/usr/include/c++/13/bits/allocated_ptr.h:
+
+/usr/include/c++/13/tr1/exp_integral.tcc:
+
+/usr/include/c++/13/bits/erase_if.h:
 
 /usr/include/c++/13/cerrno:
 
@@ -1062,8 +1080,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/c++/13/cwctype:
 
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/TimeUtilities.h:
-
 /usr/include/c++/13/debug/debug.h:
 
 /usr/include/c++/13/bits/range_access.h:
@@ -1073,8 +1089,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 /usr/include/c++/13/cstddef:
 
 /usr/include/c++/13/bits/charconv.h:
-
-/usr/include/c++/13/codecvt:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
@@ -1087,6 +1101,8 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
 /usr/include/c++/13/bits/locale_facets_nonio.h:
+
+/usr/include/c++/13/deque:
 
 /usr/include/c++/13/bits/chrono.h:
 
@@ -1176,10 +1192,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/backend/SignalHandler.h:
 
-/usr/include/c++/13/algorithm:
-
-/usr/include/x86_64-linux-gnu/bits/syscall.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
 /usr/include/c++/13/bits/stl_pair.h:
@@ -1191,18 +1203,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/Common.h:
 
 /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/backend/BacktraceStorage.h:
-
-/usr/include/c++/13/bits/stl_tree.h:
-
-/usr/include/alloca.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/MathUtils.h:
-
-/usr/include/c++/13/bits/node_handle.h:
-
-/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/LoggerBase.h:
-
-/usr/include/x86_64-linux-gnu/bits/locale.h:
 
 /usr/include/c++/13/bits/localefwd.h:
 
@@ -1232,19 +1232,27 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/c++/13/tr1/gamma.tcc:
 
+/usr/include/c++/13/bits/node_handle.h:
+
+/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/MathUtils.h:
+
+/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/core/LoggerBase.h:
+
+/usr/include/x86_64-linux-gnu/bits/locale.h:
+
 /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/filters/Filter.h:
 
 /usr/include/x86_64-linux-gnu/bits/posix_opt.h:
 
 /home/huzaifa/loggerLib/third_party/quill/quill/include/quill/sinks/FileSink.h:
 
-/usr/include/c++/13/bits/stl_iterator_base_types.h:
+/usr/include/c++/13/algorithm:
 
-/usr/include/c++/13/bits/stl_iterator.h:
+/usr/include/x86_64-linux-gnu/bits/syscall.h:
 
-/usr/include/c++/13/bits/allocated_ptr.h:
+/home/huzaifa/loggerLib/third_party/quill/quill/include/quill/sinks/RotatingFileSink.h:
 
-/usr/include/c++/13/tr1/exp_integral.tcc:
+/usr/include/c++/13/codecvt:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/bmi2intrin.h:
 
@@ -1302,8 +1310,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/c++/13/functional:
 
-/usr/include/c++/13/bits/erase_if.h:
-
 /usr/include/c++/13/bits/memoryfwd.h:
 
 /usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
@@ -1326,6 +1332,12 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/c++/13/bits/new_allocator.h:
 
+/usr/include/c++/13/bits/stl_tree.h:
+
+/usr/include/alloca.h:
+
+/usr/include/c++/13/bits/deque.tcc:
+
 /usr/include/c++/13/bits/codecvt.h:
 
 /usr/include/c++/13/ext/concurrence.h:
@@ -1342,6 +1354,10 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/x86_64-linux-gnu/bits/fp-fast.h:
 
+/usr/include/c++/13/bits/locale_classes.tcc:
+
+/usr/include/c++/13/cmath:
+
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
@@ -1355,6 +1371,10 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 /usr/include/c++/13/cstring:
 
 /usr/include/c++/13/ctime:
+
+/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
+
+/usr/include/c++/13/cwchar:
 
 /usr/include/x86_64-linux-gnu/bits/ss_flags.h:
 
@@ -1385,8 +1405,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 /usr/include/c++/13/initializer_list:
 
 /usr/include/errno.h:
-
-/usr/include/x86_64-linux-gnu/bits/timex.h:
 
 /usr/include/c++/13/ios:
 
@@ -1456,8 +1474,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/c++/13/system_error:
 
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
-
 /usr/include/c++/13/tr1/beta_function.tcc:
 
 /usr/include/c++/13/tr1/ell_integral.tcc:
@@ -1482,9 +1498,9 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/wbnoinvdintrin.h:
 
-/usr/include/c++/13/bits/predefined_ops.h:
-
 /usr/include/c++/13/bits/exception.h:
+
+/usr/include/c++/13/bits/predefined_ops.h:
 
 /usr/include/c++/13/type_traits:
 
@@ -1495,8 +1511,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 /usr/include/c++/13/typeinfo:
 
 /usr/include/x86_64-linux-gnu/bits/sigevent-consts.h:
-
-/usr/include/c++/13/unordered_map:
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
@@ -1622,6 +1636,8 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
+/usr/include/c++/13/bits/stl_deque.h:
+
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
 /usr/include/c++/13/string:
@@ -1636,6 +1652,10 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h:
 
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/x86_64-linux-gnu/bits/sigstksz.h:
+
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio.h:
@@ -1644,14 +1664,6 @@ CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o: /home/huzaifa/loggerLib/src/lo
 
 /usr/include/x86_64-linux-gnu/bits/stdio2.h:
 
-/usr/include/c++/13/cwchar:
-
-/usr/include/x86_64-linux-gnu/bits/strings_fortified.h:
-
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
-
-/usr/include/x86_64-linux-gnu/bits/sigstksz.h:
-
-/usr/include/x86_64-linux-gnu/bits/time.h:

@@ -9,10 +9,10 @@
 class Logger {
 public:
     Logger();
-    explicit Logger(const std::string& log_file);
+    explicit Logger(const std::string& log_file, size_t max_file_size = 0);
     ~Logger();
 
-    void initialize(const std::string& log_file);
+    void initialize(const std::string& log_file, size_t max_file_size = 0);
     
     // Clean interface methods that don't expose Quill types
     void info(const std::string& message);

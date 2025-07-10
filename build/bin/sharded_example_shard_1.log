@@ -1,4 +1,0 @@
-[2025-07-10 15:45:29.459 ] [INFO] [12957] [sharded_example_shard_1.log] Message from shard 1
-[2025-07-10 15:45:29.459 ] [INFO] [12957] [sharded_example_shard_1.log] Processing shard 1 with data: data1
-[2025-07-10 15:47:03.118 ] [INFO] [13104] [sharded_example_shard_1.log] Message from shard 1
-[2025-07-10 15:47:03.118 ] [INFO] [13104] [sharded_example_shard_1.log] Processing shard 1 with data: data1
