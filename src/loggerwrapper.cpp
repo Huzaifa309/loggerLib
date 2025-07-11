@@ -37,4 +37,24 @@ void LoggerWrapper::debug(uint8_t shard_id, const std::string& message) {
     }
 }
 
+// Log level control implementations
+void LoggerWrapper::set_log_level(uint8_t shard_id, LogLevel level) {
+    if (shard_id < shard_loggers_.size()) {
+        shard_loggers_[shard_id]->set_log_level(level);
+    }
+}
+
+void LoggerWrapper::set_log_level_all(LogLevel level) {
+    for (auto& logger : shard_loggers_) {
+        logger->set_log_level(level);
+    }
+}
+
+LogLevel LoggerWrapper::get_log_level(uint8_t shard_id) const {
+    if (shard_id < shard_loggers_.size()) {
+        return shard_loggers_[shard_id]->get_log_level();
+    }
+    return LogLevel::INFO; // Default fallback
+}
+
 

@@ -30,6 +30,11 @@ public:
     template<typename... Args>
     void debug_fast(uint8_t shard_id, Args&&... args);
 
+    // Log level control methods
+    void set_log_level(uint8_t shard_id, LogLevel level);
+    void set_log_level_all(LogLevel level);
+    LogLevel get_log_level(uint8_t shard_id) const;
+
 private:
     std::vector<std::unique_ptr<Logger>> shard_loggers_;
 };

@@ -213,6 +213,40 @@ int main() {
 - Shard ID must be less than the total number of shards
 - Each shard operates independently with its own log file
 
+#### Log Level Control
+
+```cpp
+#include "loggerwrapper.h"
+
+int main() {
+    LoggerWrapper wrapper(3, "my_app");
+    
+    // Set log level for a specific shard
+    wrapper.setLogLevel(0, LogLevel::DEBUG);  // Shard 0: show all messages
+    wrapper.setLogLevel(1, LogLevel::WARNING); // Shard 1: only warnings and errors
+    wrapper.setLogLevel(2, LogLevel::ERROR);   // Shard 2: only errors
+    
+    // Set log level for all shards at once
+    wrapper.setLogLevelAll(LogLevel::INFO);
+    
+    // Check current log level of a shard
+    LogLevel current_level = wrapper.getLogLevel(0);
+    
+    // Test logging with different levels
+    wrapper.debug(0, "This will appear (DEBUG level)");
+    wrapper.info(1, "This will appear (INFO level)");
+    wrapper.warn(2, "This will appear (WARNING level)");
+    wrapper.error(2, "This will appear (ERROR level)");
+    
+    return 0;
+}
+```
+
+**Available Log Level Methods:**
+- `setLogLevel(shard_id, level)` - Set log level for a specific shard
+- `setLogLevelAll(level)` - Set log level for all shards
+- `getLogLevel(shard_id)` - Get current log level of a specific shard
+
 ### Log Rotation
 
 The library supports automatic log rotation with configurable file sizes:
