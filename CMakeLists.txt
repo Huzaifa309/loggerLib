@@ -17,7 +17,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
-#include_directories(${CMAKE_SOURCE_DIR}/third_party/quill/quill/include)
 
 # Vendor Quill C++
 include(FetchContent)
@@ -51,16 +50,17 @@ set_target_properties(loggerlib PROPERTIES
     OUTPUT_NAME loggerlib
 )
 
-# Link against Quill
-target_link_libraries(loggerlib PUBLIC quill::quill)
+# Link against Quill PRIVATELY
+target_link_libraries(loggerlib PRIVATE quill::quill)
 
-# Include directories for the library
+# Only our own headers are public
+# Quill is not exposed
+#
 target_include_directories(loggerlib PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
 
-# Compiler flags
 target_compile_features(loggerlib PUBLIC cxx_std_17)
 
 # Installation - install the static library and headers
@@ -88,6 +88,9 @@ install(FILES
     DESTINATION lib/pkgconfig
 )
 
+# Remove CMake package export and config install (not safe with vendored Quill)
+# (All lines for install(EXPORT LoggerLibTargets ...) and LoggerLibConfig.cmake are removed)
+
 # Create a simple example if requested
 option(BUILD_EXAMPLE "Build example" ON)
 if(BUILD_EXAMPLE)
@@ -95,6 +98,5 @@ if(BUILD_EXAMPLE)
     target_link_libraries(example loggerlib)
     target_include_directories(example PRIVATE
         ${CMAKE_SOURCE_DIR}/include
-        #${CMAKE_SOURCE_DIR}/third_party/quill/quill/include
     )
 endif() 

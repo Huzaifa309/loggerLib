@@ -1,0 +1,4 @@
+[2025-07-11 15:20:08.546 ] [INFO] [38367] [logs/rotation_test.log] Test log entry 0 - This is a long message to fill up the file quickly for rotation testing. Additional data: 0 More text to ensure we reach the 1KB limit and trigger rotation.
+[2025-07-11 15:20:08.546 ] [INFO] [38367] [logs/rotation_test.log] Test log entry 1 - This is a long message to fill up the file quickly for rotation testing. Additional data: 100 More text to ensure we reach the 1KB limit and trigger rotation.
+[2025-07-11 15:20:08.546 ] [INFO] [38367] [logs/rotation_test.log] Test log entry 2 - This is a long message to fill up the file quickly for rotation testing. Additional data: 200 More text to ensure we reach the 1KB limit and trigger rotation.
+[2025-07-11 15:20:08.546 ] [INFO] [38367] [logs/rotation_test.log] Test log entry 3 - This is a long message to fill up the file quickly for rotation testing. Additional data: 300 More text to ensure we reach the 1KB limit and trigger rotation.
