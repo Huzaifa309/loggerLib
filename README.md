@@ -183,6 +183,27 @@ When rotation occurs, files are renamed with timestamps:
 
 ## Integration in Other Projects
 
+### Using the pre-built library (Recommended)
+
+The library comes with a pre-built static library in the `lib/` folder:
+
+```cmake
+# In your CMakeLists.txt
+cmake_minimum_required(VERSION 3.16)
+project(MyApp)
+
+set(CMAKE_CXX_STANDARD 17)
+
+# Add LoggerLib headers
+include_directories(${CMAKE_SOURCE_DIR}/path/to/loggerLib/include)
+
+# Add LoggerLib library
+link_directories(${CMAKE_SOURCE_DIR}/path/to/loggerLib/lib)
+
+add_executable(myapp main.cpp)
+target_link_libraries(myapp loggerlib pthread)
+```
+
 ### Using the installed library
 
 ```cmake
@@ -206,6 +227,10 @@ g++ -std=c++17 $(pkg-config --cflags --libs loggerlib) -o myapp main.cpp
 ### Manual linking
 
 ```bash
+# Using pre-built library
+g++ -std=c++17 -I/path/to/loggerLib/include -L/path/to/loggerLib/lib -lloggerlib -pthread -o myapp main.cpp
+
+# Using installed library
 g++ -std=c++17 -I/usr/local/include -L/usr/local/lib -lloggerlib -pthread -o myapp main.cpp
 ```
 
@@ -251,8 +276,23 @@ Components:
 ## Build Output
 
 The build process generates:
-- `lib/libloggerlib.a` - Static library
-- `bin/example` - Example executable (if BUILD_EXAMPLE=ON)
+- `build/lib/libloggerlib.a` - Static library (in build directory)
+- `build/bin/example` - Example executable (if BUILD_EXAMPLE=ON)
+
+### Distribution
+
+After building, you can copy the library to the distribution folder:
+
+```bash
+# Use the provided script
+./copy_lib.sh
+
+# Or manually
+mkdir -p lib
+cp build/lib/libloggerlib.a lib/
+```
+
+The `lib/` folder contains the pre-built static library ready for distribution.
 
 ## Architecture
 
