@@ -105,7 +105,7 @@ int main() {
     Logger logger("my_app.log", 10 * 1024 * 1024);
     
     // Set log level to only show warnings and errors
-    logger.setLogLevel(LogLevel::WARNING);
+    logger.set_log_level(LogLevel::WARNING);
     
     // These won't be logged (below WARNING level)
     logger.debug("Debug message - won't appear");
@@ -116,13 +116,13 @@ int main() {
     logger.error("Error message - will appear");
     
     // Check current log level
-    LogLevel current = logger.getLogLevel();
+    LogLevel current = logger.get_log_level();
     if (current == LogLevel::WARNING) {
         logger.info("Log level is set to WARNING");
     }
     
     // Set to debug level to see all messages
-    logger.setLogLevel(LogLevel::DEBUG);
+    logger.set_log_level(LogLevel::DEBUG);
     logger.debug("Now debug messages will appear");
     
     return 0;
@@ -133,10 +133,12 @@ int main() {
 
 ```cpp
 enum class LogLevel {
-    DEBUG,    // Most verbose - shows all messages
-    INFO,     // Information messages
-    WARNING,  // Warning messages
-    ERROR     // Only error messages
+    TRACE,     // Most verbose - shows all messages
+    DEBUG,     // Debug messages
+    INFO,      // Information messages
+    WARNING,   // Warning messages
+    ERROR,     // Error messages
+    CRITICAL   // Critical error messages
 };
 ```
 
@@ -341,11 +343,11 @@ int main() {
     logger.info_fast("Fast logging: ", "value=", 42, " time=", 1234567890);
     
     // Test log level control
-    logger.setLogLevel(LogLevel::WARNING);
+    logger.set_log_level(LogLevel::WARNING);
     logger.info("This won't appear (level too low)");
     logger.warn("This will appear");
     
-    logger.setLogLevel(LogLevel::DEBUG);
+    logger.set_log_level(LogLevel::DEBUG);
     logger.debug("Now debug messages appear again");
     
     std::cout << "Logging complete. Check example.log for output." << std::endl;
