@@ -35,7 +35,7 @@ int main() {
     LoggerWrapper wrapper(2, "logs/sharded", 5 * 1024 * 1024); // 5MB rotation
     wrapper.info_fast(0, "Shard 0 message");
     wrapper.info_fast(1, "Shard 1 message");
-    wrapper.info_msg_fast("Messaging shard message");
+    wrapper.info_fast(0, "General message on shard 0"); // Use any shard for general messages
     
     // Generate data for shards to trigger rotation
     std::cout << "Generating data for sharded logs..." << std::endl;
@@ -85,7 +85,6 @@ int main() {
     std::cout << "- logs/myapp.log (10MB rotation)" << std::endl;
     std::cout << "- logs/sharded_shard_0.log (5MB rotation)" << std::endl;
     std::cout << "- logs/sharded_shard_1.log (5MB rotation)" << std::endl;
-    std::cout << "- logs/sharded_messaging.log (5MB rotation)" << std::endl;
     std::cout << "- logs/rotation_test.log (1KB rotation - should have multiple .1.log, .2.log files)" << std::endl;
     
     return 0;

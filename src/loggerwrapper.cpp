@@ -8,8 +8,6 @@ LoggerWrapper::LoggerWrapper(uint8_t shard_count, const std::string& log_file_pr
         std::string shard_log_file = log_file_prefix + "_shard_" + std::to_string(shard_id) + ".log";
         shard_loggers_.emplace_back(std::make_unique<Logger>(shard_log_file, max_file_size));
     }
-    // One extra for messaging
-    shard_loggers_.emplace_back(std::make_unique<Logger>(log_file_prefix + "_messaging.log", max_file_size));
 }
 
 LoggerWrapper::~LoggerWrapper() = default;
@@ -36,31 +34,6 @@ void LoggerWrapper::error(uint8_t shard_id, const std::string& message) {
 void LoggerWrapper::debug(uint8_t shard_id, const std::string& message) {
     if (shard_id < shard_loggers_.size()) {
         shard_loggers_[shard_id]->debug(message);
-    }
-}
-
-// Messaging shard methods
-void LoggerWrapper::info_msg(const std::string& message) {
-    if (!shard_loggers_.empty()) {
-        shard_loggers_.back()->info(message);
-    }
-}
-
-void LoggerWrapper::warn_msg(const std::string& message) {
-    if (!shard_loggers_.empty()) {
-        shard_loggers_.back()->warn(message);
-    }
-}
-
-void LoggerWrapper::error_msg(const std::string& message) {
-    if (!shard_loggers_.empty()) {
-        shard_loggers_.back()->error(message);
-    }
-}
-
-void LoggerWrapper::debug_msg(const std::string& message) {
-    if (!shard_loggers_.empty()) {
-        shard_loggers_.back()->debug(message);
     }
 }
 

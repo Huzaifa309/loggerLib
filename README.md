@@ -156,8 +156,8 @@ int main() {
         wrapper.info_fast(i, "Shard ", static_cast<int>(i), " processed batch ", 100 + i);
     }
     
-    // Log to messaging shard (ultra-fast)
-    wrapper.info_msg_fast("Received message from user: ", "bob");
+    // Log to any shard (ultra-fast)
+    wrapper.info_fast(0, "Received message from user: ", "bob");
     return 0;
 }
 ```
@@ -259,7 +259,7 @@ When using the sharded logger, the following files are created:
 - `{prefix}_shard_0.log` - First shard log file
 - `{prefix}_shard_1.log` - Second shard log file
 - `{prefix}_shard_2.log` - Third shard log file
-- `{prefix}_messaging.log` - Messaging log file
+- etc. (one file per shard)
 
 ## Log Format
 
