@@ -392,34 +392,68 @@ LoggerLib uses the PIMPL (Pointer to Implementation) pattern to completely hide 
 
 ## Example Program
 
-The included example demonstrates all features:
+The included example demonstrates all features with comprehensive testing:
 
 ```cpp
 #include "logger.h"
+#include "loggerwrapper.h"
 #include <iostream>
+#include <chrono>
 
 int main() {
-    // Create logger with 1MB rotation
-    Logger logger("example.log", 1024 * 1024);
+    std::cout << "=== LoggerLib Ultra-Fast Logging Demo ===" << std::endl;
     
-    // Test different log levels
-    logger.debug("Debug message");
-    logger.info("Info message");
-    logger.warn("Warning message");
-    logger.error("Error message");
+    // Example 1: Single logger with 10MB rotation
+    Logger logger("logs/myapp.log", 10 * 1024 * 1024);
     
-    // Test fast logging
-    logger.info_fast("Fast logging: ", "value=", 42, " time=", 1234567890);
+    logger.info_fast("Application started");
+    logger.warn_fast("This is a test with ", 42, " items");
+    logger.error_fast("Error occurred at ", "line ", 123);
+    logger.debug_fast("Debug info: x=", 42, " y=", 3.14);
     
-    // Test log level control
-    logger.set_log_level(LogLevel::WARNING);
-    logger.info("This won't appear (level too low)");
-    logger.warn("This will appear");
+    // Example 2: Sharded logger with 5MB rotation per shard
+    LoggerWrapper wrapper(2, "logs/sharded", 5 * 1024 * 1024);
+    wrapper.info_fast(0, "Shard 0 message");
+    wrapper.info_fast(1, "Shard 1 message");
     
-    logger.set_log_level(LogLevel::DEBUG);
-    logger.debug("Now debug messages appear again");
+    // Example 3: Performance comparison (slow vs fast methods)
+    std::cout << "\n=== Performance Test ===" << std::endl;
     
-    std::cout << "Logging complete. Check example.log for output." << std::endl;
+    // SLOW method (stringstream)
+    auto start = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < 1000; ++i) {
+        std::ostringstream oss;
+        oss << "Processing request: " << i << " with data: " << "data" << i;
+        logger.info(oss.str());
+    }
+    auto slow_end = std::chrono::high_resolution_clock::now();
+    
+    // FAST method (direct concatenation)
+    auto fast_start = std::chrono::high_resolution_clock::now();
+    for (int i = 0; i < 1000; ++i) {
+        logger.info_fast("Processing request: ", i, " with data: ", "data", i);
+    }
+    auto fast_end = std::chrono::high_resolution_clock::now();
+    
+    auto slow_duration = std::chrono::duration_cast<std::chrono::microseconds>(slow_end - start);
+    auto fast_duration = std::chrono::duration_cast<std::chrono::microseconds>(fast_end - fast_start);
+    
+    std::cout << "Slow method (stringstream): " << slow_duration.count() << " microseconds" << std::endl;
+    std::cout << "Fast method (direct): " << fast_duration.count() << " microseconds" << std::endl;
+    std::cout << "Speedup: " << static_cast<double>(slow_duration.count()) / fast_duration.count() << "x faster!" << std::endl;
+    
+    // Example 4: Small file rotation test (1KB)
+    Logger test_logger("logs/rotation_test.log", 1024);
+    for (int i = 0; i < 100; ++i) {
+        test_logger.info_fast("Test log entry ", i, " - This is a long message to fill up the file quickly for rotation testing.");
+    }
+    
+    std::cout << "\nLogging completed! Check the generated log files in the logs folder:" << std::endl;
+    std::cout << "- logs/myapp.log (10MB rotation)" << std::endl;
+    std::cout << "- logs/sharded_shard_0.log (5MB rotation)" << std::endl;
+    std::cout << "- logs/sharded_shard_1.log (5MB rotation)" << std::endl;
+    std::cout << "- logs/rotation_test.log (1KB rotation - should have multiple .1.log, .2.log files)" << std::endl;
+    
     return 0;
 }
 ```
@@ -431,3 +465,11 @@ cmake -DBUILD_EXAMPLE=ON ..
 make
 ./bin/example
 ```
+
+**What the example demonstrates:**
+- **Basic logging** with different log levels
+- **Ultra-fast logging** with variadic arguments
+- **Sharded logging** across multiple files
+- **Performance comparison** between slow and fast methods
+- **File rotation** with different sizes
+- **Multiple log files** in organized folder structure
