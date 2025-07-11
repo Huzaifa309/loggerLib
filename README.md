@@ -105,7 +105,7 @@ int main() {
     Logger logger("my_app.log", 10 * 1024 * 1024);
     
     // Set log level to only show warnings and errors
-    logger.set_log_level(LogLevel::WARNING);
+    logger.setLogLevel(LogLevel::WARNING);
     
     // These won't be logged (below WARNING level)
     logger.debug("Debug message - won't appear");
@@ -116,13 +116,13 @@ int main() {
     logger.error("Error message - will appear");
     
     // Check current log level
-    LogLevel current = logger.get_log_level();
+    LogLevel current = logger.getLogLevel();
     if (current == LogLevel::WARNING) {
         logger.info("Log level is set to WARNING");
     }
     
     // Set to debug level to see all messages
-    logger.set_log_level(LogLevel::DEBUG);
+    logger.setLogLevel(LogLevel::DEBUG);
     logger.debug("Now debug messages will appear");
     
     return 0;
@@ -133,12 +133,10 @@ int main() {
 
 ```cpp
 enum class LogLevel {
-    TRACE,     // Most verbose - shows all messages
-    DEBUG,     // Debug messages
-    INFO,      // Information messages
-    WARNING,   // Warning messages
-    ERROR,     // Error messages
-    CRITICAL   // Critical error messages
+    DEBUG,    // Most verbose - shows all messages
+    INFO,     // Information messages
+    WARNING,  // Warning messages
+    ERROR     // Only error messages
 };
 ```
 
@@ -156,8 +154,8 @@ int main() {
         wrapper.info_fast(i, "Shard ", static_cast<int>(i), " processed batch ", 100 + i);
     }
     
-    // Log to any shard (ultra-fast)
-    wrapper.info_fast(0, "Received message from user: ", "bob");
+    // Log to messaging shard (ultra-fast)
+    wrapper.info_msg_fast("Received message from user: ", "bob");
     return 0;
 }
 ```
@@ -259,7 +257,7 @@ When using the sharded logger, the following files are created:
 - `{prefix}_shard_0.log` - First shard log file
 - `{prefix}_shard_1.log` - Second shard log file
 - `{prefix}_shard_2.log` - Third shard log file
-- etc. (one file per shard)
+- `{prefix}_messaging.log` - Messaging log file
 
 ## Log Format
 
@@ -343,11 +341,11 @@ int main() {
     logger.info_fast("Fast logging: ", "value=", 42, " time=", 1234567890);
     
     // Test log level control
-    logger.set_log_level(LogLevel::WARNING);
+    logger.setLogLevel(LogLevel::WARNING);
     logger.info("This won't appear (level too low)");
     logger.warn("This will appear");
     
-    logger.set_log_level(LogLevel::DEBUG);
+    logger.setLogLevel(LogLevel::DEBUG);
     logger.debug("Now debug messages appear again");
     
     std::cout << "Logging complete. Check example.log for output." << std::endl;
