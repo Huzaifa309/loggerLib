@@ -9,23 +9,9 @@ A C++ logging library that provides a clean, simple interface for logging with a
 - **Smart Log Rotation**: Automatic file rotation with timestamped filenames
 - **PIMPL Pattern**: Complete encapsulation of internal implementation details
 - **Manual Log Level Control**: Set and get log levels at runtime
-- Single logger instance for basic logging needs
-- Sharded logger wrapper for high-performance logging across multiple files
-- Automatic Quill C++ integration (vendored and hidden)
-- Static library (.a) output for easy integration
-- CMake-based build system
-
-## Key Benefits
-
-1. **Ultra-Fast Logging**: Direct variadic logging, no stringstream overhead
-2. **Smart Rotation**: Automatic file rotation with timestamped filenames
-3. **Complete Encapsulation**: Users never need to include or know about Quill
-4. **Simple Interface**: Clean, straightforward logging API
-5. **Runtime Configuration**: Set log levels dynamically without recompilation
-6. **Vendored Dependencies**: Everything is self-contained
-7. **Thread-Safe**: Built on Quill's thread-safe foundation
-8. **High Performance**: Leverages Quill's asynchronous logging
-9. **Configurable**: Easy to adjust rotation sizes and other settings
+- **Sharded Logging**: High-performance logging across multiple files
+- **Thread-Safe**: Built on Quill's thread-safe foundation
+- **Static Library**: Easy integration with any C++ project
 
 ## Dependencies
 
@@ -105,7 +91,7 @@ int main() {
     Logger logger("my_app.log", 10 * 1024 * 1024);
     
     // Set log level to only show warnings and errors
-    logger.setLogLevel(LogLevel::WARNING);
+    logger.set_log_level(LogLevel::WARNING);
     
     // These won't be logged (below WARNING level)
     logger.debug("Debug message - won't appear");
@@ -116,13 +102,13 @@ int main() {
     logger.error("Error message - will appear");
     
     // Check current log level
-    LogLevel current = logger.getLogLevel();
+    LogLevel current = logger.get_log_level();
     if (current == LogLevel::WARNING) {
         logger.info("Log level is set to WARNING");
     }
     
     // Set to debug level to see all messages
-    logger.setLogLevel(LogLevel::DEBUG);
+    logger.set_log_level(LogLevel::DEBUG);
     logger.debug("Now debug messages will appear");
     
     return 0;
@@ -222,15 +208,15 @@ int main() {
     LoggerWrapper wrapper(3, "my_app");
     
     // Set log level for a specific shard
-    wrapper.setLogLevel(0, LogLevel::DEBUG);  // Shard 0: show all messages
-    wrapper.setLogLevel(1, LogLevel::WARNING); // Shard 1: only warnings and errors
-    wrapper.setLogLevel(2, LogLevel::ERROR);   // Shard 2: only errors
+    wrapper.set_log_level(0, LogLevel::DEBUG);  // Shard 0: show all messages
+    wrapper.set_log_level(1, LogLevel::WARNING); // Shard 1: only warnings and errors
+    wrapper.set_log_level(2, LogLevel::ERROR);   // Shard 2: only errors
     
     // Set log level for all shards at once
-    wrapper.setLogLevelAll(LogLevel::INFO);
+    wrapper.set_log_level_all(LogLevel::INFO);
     
     // Check current log level of a shard
-    LogLevel current_level = wrapper.getLogLevel(0);
+    LogLevel current_level = wrapper.get_log_level(0);
     
     // Test logging with different levels
     wrapper.debug(0, "This will appear (DEBUG level)");
@@ -243,9 +229,9 @@ int main() {
 ```
 
 **Available Log Level Methods:**
-- `setLogLevel(shard_id, level)` - Set log level for a specific shard
-- `setLogLevelAll(level)` - Set log level for all shards
-- `getLogLevel(shard_id)` - Get current log level of a specific shard
+- `set_log_level(shard_id, level)` - Set log level for a specific shard
+- `set_log_level_all(level)` - Set log level for all shards
+- `get_log_level(shard_id)` - Get current log level of a specific shard
 
 ### Log Rotation
 
@@ -344,7 +330,7 @@ When using the sharded logger, the following files are created:
 - `{prefix}_shard_0.log` - First shard log file
 - `{prefix}_shard_1.log` - Second shard log file
 - `{prefix}_shard_2.log` - Third shard log file
-- `{prefix}_messaging.log` - Messaging log file
+- etc.
 
 ## Log Format
 
@@ -400,10 +386,8 @@ LoggerLib uses the PIMPL (Pointer to Implementation) pattern to completely hide 
 
 - **PIMPL Implementation**: Complete encapsulation using Pointer to Implementation pattern
 - **Clean Headers**: Removed all Quill dependencies from public interface
-- **Private Linking**: Quill linked privately, not exposed to consumers
 - **Manual Log Level Control**: Added runtime log level configuration
 - **Fixed Log Rotation**: Improved rotation behavior with proper timestamped filenames
-- **Better File Naming**: Rotated files now include creation timestamps for easy identification
 - **Proper Configuration**: Updated Quill integration for optimal performance and reliability
 
 ## Example Program
@@ -428,11 +412,11 @@ int main() {
     logger.info_fast("Fast logging: ", "value=", 42, " time=", 1234567890);
     
     // Test log level control
-    logger.setLogLevel(LogLevel::WARNING);
+    logger.set_log_level(LogLevel::WARNING);
     logger.info("This won't appear (level too low)");
     logger.warn("This will appear");
     
-    logger.setLogLevel(LogLevel::DEBUG);
+    logger.set_log_level(LogLevel::DEBUG);
     logger.debug("Now debug messages appear again");
     
     std::cout << "Logging complete. Check example.log for output." << std::endl;
