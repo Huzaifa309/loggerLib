@@ -8,6 +8,7 @@ A C++ logging library that provides a clean, simple interface for logging with a
 - **Clean Interface**: No Quill dependencies exposed to users
 - **Smart Log Rotation**: Automatic file rotation with timestamped filenames
 - **PIMPL Pattern**: Complete encapsulation of internal implementation details
+- **Manual Log Level Control**: Set and get log levels at runtime
 - Single logger instance for basic logging needs
 - Sharded logger wrapper for high-performance logging across multiple files
 - Automatic Quill C++ integration (vendored and hidden)
@@ -20,10 +21,11 @@ A C++ logging library that provides a clean, simple interface for logging with a
 2. **Smart Rotation**: Automatic file rotation with timestamped filenames
 3. **Complete Encapsulation**: Users never need to include or know about Quill
 4. **Simple Interface**: Clean, straightforward logging API
-5. **Vendored Dependencies**: Everything is self-contained
-6. **Thread-Safe**: Built on Quill's thread-safe foundation
-7. **High Performance**: Leverages Quill's asynchronous logging
-8. **Configurable**: Easy to adjust rotation sizes and other settings
+5. **Runtime Configuration**: Set log levels dynamically without recompilation
+6. **Vendored Dependencies**: Everything is self-contained
+7. **Thread-Safe**: Built on Quill's thread-safe foundation
+8. **High Performance**: Leverages Quill's asynchronous logging
+9. **Configurable**: Easy to adjust rotation sizes and other settings
 
 ## Dependencies
 
@@ -92,6 +94,50 @@ int main() {
     logger.debug_fast("Debug: x=", 42, " y=", 3.14);
     return 0;
 }
+```
+
+### Manual Log Level Control
+
+```cpp
+#include "logger.h"
+
+int main() {
+    Logger logger("my_app.log", 10 * 1024 * 1024);
+    
+    // Set log level to only show warnings and errors
+    logger.setLogLevel(LogLevel::WARNING);
+    
+    // These won't be logged (below WARNING level)
+    logger.debug("Debug message - won't appear");
+    logger.info("Info message - won't appear");
+    
+    // These will be logged
+    logger.warn("Warning message - will appear");
+    logger.error("Error message - will appear");
+    
+    // Check current log level
+    LogLevel current = logger.getLogLevel();
+    if (current == LogLevel::WARNING) {
+        logger.info("Log level is set to WARNING");
+    }
+    
+    // Set to debug level to see all messages
+    logger.setLogLevel(LogLevel::DEBUG);
+    logger.debug("Now debug messages will appear");
+    
+    return 0;
+}
+```
+
+### Available Log Levels
+
+```cpp
+enum class LogLevel {
+    DEBUG,    // Most verbose - shows all messages
+    INFO,     // Information messages
+    WARNING,  // Warning messages
+    ERROR     // Only error messages
+};
 ```
 
 ### Sharded Logging (Ultra-Fast)
@@ -228,6 +274,49 @@ LoggerLib uses the PIMPL (Pointer to Implementation) pattern to completely hide 
 - **PIMPL Implementation**: Complete encapsulation using Pointer to Implementation pattern
 - **Clean Headers**: Removed all Quill dependencies from public interface
 - **Private Linking**: Quill linked privately, not exposed to consumers
+- **Manual Log Level Control**: Added runtime log level configuration
 - **Fixed Log Rotation**: Improved rotation behavior with proper timestamped filenames
 - **Better File Naming**: Rotated files now include creation timestamps for easy identification
 - **Proper Configuration**: Updated Quill integration for optimal performance and reliability
+
+## Example Program
+
+The included example demonstrates all features:
+
+```cpp
+#include "logger.h"
+#include <iostream>
+
+int main() {
+    // Create logger with 1MB rotation
+    Logger logger("example.log", 1024 * 1024);
+    
+    // Test different log levels
+    logger.debug("Debug message");
+    logger.info("Info message");
+    logger.warn("Warning message");
+    logger.error("Error message");
+    
+    // Test fast logging
+    logger.info_fast("Fast logging: ", "value=", 42, " time=", 1234567890);
+    
+    // Test log level control
+    logger.setLogLevel(LogLevel::WARNING);
+    logger.info("This won't appear (level too low)");
+    logger.warn("This will appear");
+    
+    logger.setLogLevel(LogLevel::DEBUG);
+    logger.debug("Now debug messages appear again");
+    
+    std::cout << "Logging complete. Check example.log for output." << std::endl;
+    return 0;
+}
+```
+
+Build and run the example:
+```bash
+cd build
+cmake -DBUILD_EXAMPLE=ON ..
+make
+./bin/example
+```

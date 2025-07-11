@@ -17,7 +17,7 @@ public:
     LoggerImpl() = default;
     ~LoggerImpl() = default;
 
-    void initialize(const std::string& log_file, size_t max_file_size) {
+    void initialize(const std::string& log_file, LogLevel level, size_t max_file_size) {
         static bool backend_started = false;
         if (!backend_started) {
             backend_started = true;
@@ -57,10 +57,31 @@ public:
                 "%Y-%m-%d %H:%M:%S.%Qms ",
                 quill::Timezone::LocalTime
             );
-            quill_logger_->set_log_level(quill::LogLevel::Debug);
+            set_log_level(level);
         } catch (const std::exception& ex) {
             std::cerr << "Log initialization failed: " << ex.what() << std::endl;
         }
+    }
+
+    void set_log_level(LogLevel level) {
+        if (!quill_logger_) return;
+        
+        quill::LogLevel quill_level;
+        switch (level) {
+            case LogLevel::TRACE: quill_level = quill::LogLevel::TraceL3; break;
+            case LogLevel::DEBUG: quill_level = quill::LogLevel::Debug; break;
+            case LogLevel::INFO: quill_level = quill::LogLevel::Info; break;
+            case LogLevel::WARNING: quill_level = quill::LogLevel::Warning; break;
+            case LogLevel::ERROR: quill_level = quill::LogLevel::Error; break;
+            case LogLevel::CRITICAL: quill_level = quill::LogLevel::Critical; break;
+            default: quill_level = quill::LogLevel::Info; break;
+        }
+        quill_logger_->set_log_level(quill_level);
+        current_level_ = level;
+    }
+
+    LogLevel get_log_level() const {
+        return current_level_;
     }
 
     void info(const std::string& message) {
@@ -98,19 +119,37 @@ public:
 
 private:
     quill::Logger* quill_logger_ = nullptr;
+    LogLevel current_level_ = LogLevel::INFO;
 };
 
 Logger::Logger() : impl_(std::make_unique<LoggerImpl>()) {}
 
 Logger::Logger(const std::string& log_file, size_t max_file_size)
     : impl_(std::make_unique<LoggerImpl>()) {
-    impl_->initialize(log_file, max_file_size);
+    impl_->initialize(log_file, LogLevel::DEBUG, max_file_size);
+}
+
+Logger::Logger(const std::string& log_file, LogLevel level, size_t max_file_size)
+    : impl_(std::make_unique<LoggerImpl>()) {
+    impl_->initialize(log_file, level, max_file_size);
 }
 
 Logger::~Logger() = default;
 
 void Logger::initialize(const std::string& log_file, size_t max_file_size) {
-    impl_->initialize(log_file, max_file_size);
+    impl_->initialize(log_file, LogLevel::DEBUG, max_file_size);
+}
+
+void Logger::initialize(const std::string& log_file, LogLevel level, size_t max_file_size) {
+    impl_->initialize(log_file, level, max_file_size);
+}
+
+void Logger::set_log_level(LogLevel level) {
+    impl_->set_log_level(level);
+}
+
+LogLevel Logger::get_log_level() const {
+    return impl_->get_log_level();
 }
 
 void Logger::info(const std::string& message) {

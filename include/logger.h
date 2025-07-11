@@ -7,13 +7,29 @@
 
 class LoggerImpl; // PIMPL forward declaration
 
+// Log levels enum (clean interface, no Quill exposure)
+enum class LogLevel {
+    TRACE = 0,
+    DEBUG = 1,
+    INFO = 2,
+    WARNING = 3,
+    ERROR = 4,
+    CRITICAL = 5
+};
+
 class Logger {
 public:
     Logger();
     explicit Logger(const std::string& log_file, size_t max_file_size = 0);
+    explicit Logger(const std::string& log_file, LogLevel level, size_t max_file_size = 0);
     ~Logger();
 
     void initialize(const std::string& log_file, size_t max_file_size = 0);
+    void initialize(const std::string& log_file, LogLevel level, size_t max_file_size = 0);
+    
+    // Log level configuration
+    void set_log_level(LogLevel level);
+    LogLevel get_log_level() const;
     
     void info(const std::string& message);
     void warn(const std::string& message);
