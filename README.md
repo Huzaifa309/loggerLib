@@ -399,7 +399,7 @@ The included example demonstrates all features with comprehensive testing:
 #include "loggerwrapper.h"
 #include <iostream>
 #include <chrono>
-
+#include <sstream>
 int main() {
     std::cout << "=== LoggerLib Ultra-Fast Logging Demo ===" << std::endl;
     
