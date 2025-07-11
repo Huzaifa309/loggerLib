@@ -142,6 +142,39 @@ enum class LogLevel {
 
 ### Sharded Logging (Ultra-Fast)
 
+The `LoggerWrapper` provides high-performance sharded logging across multiple files, ideal for applications that need to separate logs by different components or threads.
+
+#### Constructor
+```cpp
+LoggerWrapper(uint8_t shard_count, const std::string& log_file_prefix, size_t max_file_size = 0)
+```
+
+**Parameters:**
+- `shard_count`: Number of shards (0-255)
+- `log_file_prefix`: Base filename for log files
+- `max_file_size`: Maximum file size in bytes before rotation (0 = no rotation)
+
+#### Basic Usage
+
+```cpp
+#include "loggerwrapper.h"
+
+int main() {
+    // Create a sharded logger with 3 shards, 10MB rotation
+    LoggerWrapper wrapper(3, "my_app", 10 * 1024 * 1024);
+    
+    // Log to different shards
+    wrapper.info(0, "Processing user data");
+    wrapper.warn(1, "Low memory warning");
+    wrapper.error(2, "Database connection failed");
+    wrapper.debug(0, "Debug information for shard 0");
+    
+    return 0;
+}
+```
+
+#### Ultra-Fast Logging
+
 ```cpp
 #include "loggerwrapper.h"
 
@@ -149,16 +182,36 @@ int main() {
     // Create a sharded logger with 3 shards
     LoggerWrapper wrapper(3, "my_app");
     
-    // Log to different shards (ultra-fast)
+    // Ultra-fast logging to different shards (no stringstream overhead)
     for (uint8_t i = 0; i < 3; ++i) {
         wrapper.info_fast(i, "Shard ", static_cast<int>(i), " processed batch ", 100 + i);
+        wrapper.warn_fast(i, "Shard ", static_cast<int>(i), " memory usage: ", 85.5, "%");
+        wrapper.error_fast(i, "Shard ", static_cast<int>(i), " error code: ", 404);
+        wrapper.debug_fast(i, "Shard ", static_cast<int>(i), " debug: x=", 42, " y=", 3.14);
     }
     
-    // Log to messaging shard (ultra-fast)
-    wrapper.info_msg_fast("Received message from user: ", "bob");
     return 0;
 }
 ```
+
+#### Available Methods
+
+**Standard Logging (with string formatting):**
+- `info(shard_id, message)` - Log info message to specified shard
+- `warn(shard_id, message)` - Log warning message to specified shard  
+- `error(shard_id, message)` - Log error message to specified shard
+- `debug(shard_id, message)` - Log debug message to specified shard
+
+**Ultra-Fast Logging (direct variadic, no stringstream):**
+- `info_fast(shard_id, args...)` - Fast info logging with variadic arguments
+- `warn_fast(shard_id, args...)` - Fast warning logging with variadic arguments
+- `error_fast(shard_id, args...)` - Fast error logging with variadic arguments
+- `debug_fast(shard_id, args...)` - Fast debug logging with variadic arguments
+
+**Error Handling:**
+- Invalid shard IDs are safely ignored (no crash)
+- Shard ID must be less than the total number of shards
+- Each shard operates independently with its own log file
 
 ### Log Rotation
 
