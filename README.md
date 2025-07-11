@@ -7,11 +7,23 @@ A C++ logging library that provides a clean, simple interface for logging with a
 - **Ultra-Fast Logging**: Direct variadic logging methods with zero stringstream overhead
 - **Clean Interface**: No Quill dependencies exposed to users
 - **Smart Log Rotation**: Automatic file rotation with timestamped filenames
+- **PIMPL Pattern**: Complete encapsulation of internal implementation details
 - Single logger instance for basic logging needs
 - Sharded logger wrapper for high-performance logging across multiple files
 - Automatic Quill C++ integration (vendored and hidden)
 - Static library (.a) output for easy integration
 - CMake-based build system
+
+## Key Benefits
+
+1. **Ultra-Fast Logging**: Direct variadic logging, no stringstream overhead
+2. **Smart Rotation**: Automatic file rotation with timestamped filenames
+3. **Complete Encapsulation**: Users never need to include or know about Quill
+4. **Simple Interface**: Clean, straightforward logging API
+5. **Vendored Dependencies**: Everything is self-contained
+6. **Thread-Safe**: Built on Quill's thread-safe foundation
+7. **High Performance**: Leverages Quill's asynchronous logging
+8. **Configurable**: Easy to adjust rotation sizes and other settings
 
 ## Dependencies
 
@@ -123,60 +135,43 @@ When rotation occurs, files are renamed with timestamps:
 - `app_20250710_164126.2.log` - Second rotated file
 - etc.
 
-### Performance
-
-Ultra-fast logging methods (`info_fast`, `warn_fast`, etc.) avoid all stringstream overhead and use direct string concatenation. This provides a significant speedup for high-frequency logging scenarios.
-
-**Example performance test:**
-```cpp
-#include "logger.h"
-#include <chrono>
-
-int main() {
-    Logger logger("perf.log");
-    auto start = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < 10000; ++i) {
-        logger.info_fast("Processing request: ", i, " with data: ", "data", i);
-    }
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    std::cout << "Ultra-fast logging: " << duration.count() << " microseconds for 10,000 logs" << std::endl;
-    return 0;
-}
-```
-
 ## Integration in Other Projects
 
 ### Using the installed library
 
 ```cmake
 # In your CMakeLists.txt
-find_package(Threads REQUIRED)
-add_library(loggerlib STATIC IMPORTED)
-set_target_properties(loggerlib PROPERTIES
-    IMPORTED_LOCATION /usr/local/lib/libloggerlib.a
-    INTERFACE_INCLUDE_DIRECTORIES /usr/local/include
-)
-target_link_libraries(your_target loggerlib Threads::Threads)
+cmake_minimum_required(VERSION 3.16)
+project(MyApp)
+
+set(CMAKE_CXX_STANDARD 17)
+include_directories(/usr/local/include)
+
+add_executable(myapp main.cpp)
+target_link_libraries(myapp /usr/local/lib/libloggerlib.a)
 ```
 
-### Using the static library directly
+### Using pkg-config
 
-```cmake
-# In your CMakeLists.txt
-find_package(Threads REQUIRED)
-add_library(loggerlib STATIC IMPORTED)
-set_target_properties(loggerlib PROPERTIES
-    IMPORTED_LOCATION /path/to/libloggerlib.a
-    INTERFACE_INCLUDE_DIRECTORIES /path/to/include
-)
-target_link_libraries(your_target loggerlib Threads::Threads)
+```bash
+g++ -std=c++17 $(pkg-config --cflags --libs loggerlib) -o myapp main.cpp
 ```
 
 ### Manual linking
 
 ```bash
-g++ -o myapp myapp.cpp -L/path/to/lib -lloggerlib -lpthread
+g++ -std=c++17 -I/usr/local/include -L/usr/local/lib -lloggerlib -pthread -o myapp main.cpp
+```
+
+### Using as Git submodule
+
+```bash
+# In your project
+git submodule add <your-repo-url> third_party/loggerLib
+
+# In your CMakeLists.txt
+add_subdirectory(third_party/loggerLib)
+target_link_libraries(myapp loggerlib)
 ```
 
 ## Generated Files
@@ -213,19 +208,26 @@ The build process generates:
 - `lib/libloggerlib.a` - Static library
 - `bin/example` - Example executable (if BUILD_EXAMPLE=ON)
 
-## Key Benefits
+## Architecture
 
-1. **Ultra-Fast Logging**: Direct variadic logging, no stringstream overhead
-2. **Smart Rotation**: Automatic file rotation with timestamped filenames
-3. **No Quill Dependencies**: Users never need to include or know about Quill
-4. **Simple Interface**: Clean, straightforward logging API
-5. **Vendored Dependencies**: Everything is self-contained
-6. **Thread-Safe**: Built on Quill's thread-safe foundation
-7. **High Performance**: Leverages Quill's asynchronous logging
-8. **Configurable**: Easy to adjust rotation sizes and other settings
+### PIMPL Pattern
+LoggerLib uses the PIMPL (Pointer to Implementation) pattern to completely hide the Quill dependency:
+
+- **Public Interface**: Clean, minimal headers with no Quill dependencies
+- **Private Implementation**: All Quill logic encapsulated in implementation files
+- **Template Methods**: Fast logging methods use only standard types and internal forwarding
+
+### Encapsulation Benefits
+- **No Transitive Dependencies**: Users don't need to include or link Quill
+- **Clean API**: Simple interface without implementation details
+- **Easy Integration**: Drop-in logging solution for any C++ project
+- **Version Independence**: Internal Quill version changes don't affect users
 
 ## Recent Improvements
 
+- **PIMPL Implementation**: Complete encapsulation using Pointer to Implementation pattern
+- **Clean Headers**: Removed all Quill dependencies from public interface
+- **Private Linking**: Quill linked privately, not exposed to consumers
 - **Fixed Log Rotation**: Improved rotation behavior with proper timestamped filenames
 - **Better File Naming**: Rotated files now include creation timestamps for easy identification
 - **Proper Configuration**: Updated Quill integration for optimal performance and reliability
