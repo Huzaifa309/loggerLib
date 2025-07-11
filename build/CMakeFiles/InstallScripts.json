@@ -1,9 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/huzaifa/loggerLib/build/cmake_install.cmake",
-		"/home/huzaifa/loggerLib/build/_deps/quill-build/cmake_install.cmake",
-		"/home/huzaifa/loggerLib/build/_deps/quill-build/quill/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

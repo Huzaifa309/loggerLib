@@ -1,4 +1,0 @@
-/usr/local/lib/libloggerlib.a
-/usr/local/include/loggerwrapper.h
-/usr/local/include/logger.h
-/usr/local/lib/pkgconfig/loggerlib.pc

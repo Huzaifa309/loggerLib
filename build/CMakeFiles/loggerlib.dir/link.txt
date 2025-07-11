@@ -1,2 +1,0 @@
-/usr/bin/ar qc lib/libloggerlib.a CMakeFiles/loggerlib.dir/src/logger.cpp.o CMakeFiles/loggerlib.dir/src/loggerwrapper.cpp.o
-/usr/bin/ranlib lib/libloggerlib.a
