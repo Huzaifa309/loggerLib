@@ -50,7 +50,7 @@ sudo yum install cmake git
 
 1. **Clone and build:**
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Huzaifa309/loggerLib
 cd loggerLib
 mkdir build && cd build
 cmake ..
@@ -167,7 +167,7 @@ g++ -std=c++17 -I/usr/local/include -L/usr/local/lib -lloggerlib -pthread -o mya
 
 ```bash
 # In your project
-git submodule add <your-repo-url> third_party/loggerLib
+git submodule add https://github.com/Huzaifa309/loggerLib third_party/loggerLib
 
 # In your CMakeLists.txt
 add_subdirectory(third_party/loggerLib)
