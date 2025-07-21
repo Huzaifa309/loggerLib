@@ -12,9 +12,9 @@ int main() {
     Logger logger("logs/myapp.log", 10 * 1024 * 1024); // 10MB rotation
     
     logger.info_fast("Application started");
-    logger.warn_fast("This is a test with ", 42, " items");
-    logger.error_fast("Error occurred at ", "line ", 123);
-    logger.debug_fast("Debug info: x=", 42, " y=", 3.14);
+    logger.warn_fast("This is a test with {} items", 42);
+    logger.error_fast("Error occurred at line {}", 123);
+    logger.debug_fast("Debug info: x={} y={}", 42, 3.14);
     
     // Generate enough data to trigger rotation (10MB = ~10,485,760 bytes)
     std::cout << "Generating data to trigger 10MB rotation..." << std::endl;
@@ -25,7 +25,7 @@ int main() {
     
     // Write enough messages to exceed 10MB (will take more iterations)
     for (int i = 0; i < 50000; ++i) {
-        logger.info_fast("Log entry ", i, ": ", large_message, "Additional data: ", i * 1000);
+        logger.info_fast("Log entry {}: {}Additional data: {}", i, large_message, i * 1000);
         if (i % 10000 == 0) {
             std::cout << "Generated " << i << " log entries..." << std::endl;
         }
@@ -40,8 +40,8 @@ int main() {
     // Generate data for shards to trigger rotation
     std::cout << "Generating data for sharded logs..." << std::endl;
     for (int i = 0; i < 20000; ++i) {
-        wrapper.info_fast(0, "Shard 0 - Log entry ", i, ": ", large_message, "Shard data: ", i * 500);
-        wrapper.info_fast(1, "Shard 1 - Log entry ", i, ": ", large_message, "Shard data: ", i * 500);
+        wrapper.info_fast(0, "Shard 0 - Log entry {}: {}Shard data: {}", i, large_message, i * 500);
+        wrapper.info_fast(1, "Shard 1 - Log entry {}: {}Shard data: {}", i, large_message, i * 500);
         if (i % 5000 == 0) {
             std::cout << "Generated " << i << " sharded log entries..." << std::endl;
         }
@@ -62,7 +62,7 @@ int main() {
     // FAST method (direct concatenation)
     auto fast_start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 1000; ++i) {
-        logger.info_fast("Processing request: ", i, " with data: ", "data", i);
+        logger.info_fast("Processing request: {} with data: {}{}", i, "data", i);
     }
     auto fast_end = std::chrono::high_resolution_clock::now();
     
@@ -77,8 +77,7 @@ int main() {
     Logger test_logger("logs/rotation_test.log", 1024); // 1KB rotation
     std::cout << "Generating data for 1KB rotation test..." << std::endl;
     for (int i = 0; i < 100; ++i) {
-        test_logger.info_fast("Test log entry ", i, " - This is a long message to fill up the file quickly for rotation testing. ", 
-                             "Additional data: ", i * 100, " More text to ensure we reach the 1KB limit and trigger rotation.");
+        test_logger.info_fast("Test log entry {} - This is a long message to fill up the file quickly for rotation testing. Additional data: {} More text to ensure we reach the 1KB limit and trigger rotation.", i, i * 100);
     }
     
     std::cout << "\nLogging completed! Check the generated log files in the logs folder:" << std::endl;

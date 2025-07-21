@@ -98,5 +98,6 @@ if(BUILD_EXAMPLE)
     target_link_libraries(example loggerlib)
     target_include_directories(example PRIVATE
         ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/third_party/quill/quill/include
     )
 endif() 

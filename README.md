@@ -4,7 +4,7 @@ A C++ logging library that provides a clean, simple interface for logging with a
 
 ## Features
 
-- **Ultra-Fast Logging**: Direct variadic logging methods with zero stringstream overhead
+- **Ultra-Fast Logging**: Direct fmt-style logging methods with zero stringstream overhead (use `{}` placeholders)
 - **Clean Interface**: No Quill dependencies exposed to users
 - **Smart Log Rotation**: Automatic file rotation with timestamped filenames
 - **PIMPL Pattern**: Complete encapsulation of internal implementation details
@@ -73,11 +73,11 @@ int main() {
     logger.error("An error occurred");
     logger.debug("Debug information");
     
-    // Ultra-fast logging (no stringstream, direct variadic)
-    logger.info_fast("User ", "alice", " logged in at ", 1234567890);
-    logger.warn_fast("Low disk space: ", 42, "% remaining");
-    logger.error_fast("Failed to open file: ", "/tmp/data.txt");
-    logger.debug_fast("Debug: x=", 42, " y=", 3.14);
+    // Ultra-fast logging (fmt-style, no stringstream, direct formatting)
+    logger.info_fast("User {} logged in at {}", "alice", 1234567890);
+    logger.warn_fast("Low disk space: {}% remaining", 42);
+    logger.error_fast("Failed to open file: {}", "/tmp/data.txt");
+    logger.debug_fast("Debug: x={} y={}", 42, 3.14);
     return 0;
 }
 ```
@@ -168,12 +168,12 @@ int main() {
     // Create a sharded logger with 3 shards
     LoggerWrapper wrapper(3, "my_app");
     
-    // Ultra-fast logging to different shards (no stringstream overhead)
+    // Ultra-fast logging to different shards (fmt-style, no stringstream overhead)
     for (uint8_t i = 0; i < 3; ++i) {
-        wrapper.info_fast(i, "Shard ", static_cast<int>(i), " processed batch ", 100 + i);
-        wrapper.warn_fast(i, "Shard ", static_cast<int>(i), " memory usage: ", 85.5, "%");
-        wrapper.error_fast(i, "Shard ", static_cast<int>(i), " error code: ", 404);
-        wrapper.debug_fast(i, "Shard ", static_cast<int>(i), " debug: x=", 42, " y=", 3.14);
+        wrapper.info_fast(i, "Shard {} processed batch {}", static_cast<int>(i), 100 + i);
+        wrapper.warn_fast(i, "Shard {} memory usage: {}%", static_cast<int>(i), 85.5);
+        wrapper.error_fast(i, "Shard {} error code: {}", static_cast<int>(i), 404);
+        wrapper.debug_fast(i, "Shard {} debug: x={} y={}", static_cast<int>(i), 42, 3.14);
     }
     
     return 0;
@@ -188,11 +188,11 @@ int main() {
 - `error(shard_id, message)` - Log error message to specified shard
 - `debug(shard_id, message)` - Log debug message to specified shard
 
-**Ultra-Fast Logging (direct variadic, no stringstream):**
-- `info_fast(shard_id, args...)` - Fast info logging with variadic arguments
-- `warn_fast(shard_id, args...)` - Fast warning logging with variadic arguments
-- `error_fast(shard_id, args...)` - Fast error logging with variadic arguments
-- `debug_fast(shard_id, args...)` - Fast debug logging with variadic arguments
+**Ultra-Fast Logging (fmt-style, no stringstream):**
+- `info_fast(shard_id, fmt, args...)` - Fast info logging with fmt-style formatting
+- `warn_fast(shard_id, fmt, args...)` - Fast warning logging with fmt-style formatting
+- `error_fast(shard_id, fmt, args...)` - Fast error logging with fmt-style formatting
+- `debug_fast(shard_id, fmt, args...)` - Fast debug logging with fmt-style formatting
 
 **Error Handling:**
 - Invalid shard IDs are safely ignored (no crash)
@@ -407,9 +407,9 @@ int main() {
     Logger logger("logs/myapp.log", 10 * 1024 * 1024);
     
     logger.info_fast("Application started");
-    logger.warn_fast("This is a test with ", 42, " items");
-    logger.error_fast("Error occurred at ", "line ", 123);
-    logger.debug_fast("Debug info: x=", 42, " y=", 3.14);
+    logger.warn_fast("This is a test with {} items", 42);
+    logger.error_fast("Error occurred at line {}", 123);
+    logger.debug_fast("Debug info: x={} y={}", 42, 3.14);
     
     // Example 2: Sharded logger with 5MB rotation per shard
     LoggerWrapper wrapper(2, "logs/sharded", 5 * 1024 * 1024);
@@ -428,10 +428,10 @@ int main() {
     }
     auto slow_end = std::chrono::high_resolution_clock::now();
     
-    // FAST method (direct concatenation)
+    // FAST method (fmt-style)
     auto fast_start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 1000; ++i) {
-        logger.info_fast("Processing request: ", i, " with data: ", "data", i);
+        logger.info_fast("Processing request: {} with data: {}{}", i, "data", i);
     }
     auto fast_end = std::chrono::high_resolution_clock::now();
     
@@ -439,13 +439,13 @@ int main() {
     auto fast_duration = std::chrono::duration_cast<std::chrono::microseconds>(fast_end - fast_start);
     
     std::cout << "Slow method (stringstream): " << slow_duration.count() << " microseconds" << std::endl;
-    std::cout << "Fast method (direct): " << fast_duration.count() << " microseconds" << std::endl;
+    std::cout << "Fast method (fmt-style): " << fast_duration.count() << " microseconds" << std::endl;
     std::cout << "Speedup: " << static_cast<double>(slow_duration.count()) / fast_duration.count() << "x faster!" << std::endl;
     
     // Example 4: Small file rotation test (1KB)
     Logger test_logger("logs/rotation_test.log", 1024);
     for (int i = 0; i < 100; ++i) {
-        test_logger.info_fast("Test log entry ", i, " - This is a long message to fill up the file quickly for rotation testing.");
+        test_logger.info_fast("Test log entry {} - This is a long message to fill up the file quickly for rotation testing.", i);
     }
     
     std::cout << "\nLogging completed! Check the generated log files in the logs folder:" << std::endl;

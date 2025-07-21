@@ -5,6 +5,7 @@
 #include <utility>
 #include <string>
 
+#include "quill/bundled/fmt/core.h"
 #include "quill/Backend.h"
 #include "quill/Frontend.h"
 #include "quill/sinks/FileSink.h"
@@ -166,6 +167,10 @@ void Logger::debug(const std::string& message) {
 }
 void Logger::log_fast_impl(const char* level, const std::string& msg) {
     impl_->log_fast_impl(level, msg);
+}
+
+void Logger::log_fast(const char* level, const std::string& msg) {
+    log_fast_impl(level, msg);
 }
 
 
