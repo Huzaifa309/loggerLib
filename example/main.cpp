@@ -15,7 +15,7 @@ int main() {
     // FMT-style logging (works with any format string, literal or variable)
     int user_id = 42;
     std::string username = "alice";
-    logger.info_fast("User {} logged in with id {}", username, user_id);
+    logger.info_fast("User {} logged in with id {}", "helo", user_id);
     logger.warn_fast("Low disk space: {}% remaining", 15);
     logger.error_fast("Failed to open file: {}", "/tmp/data.txt");
     logger.debug_fast("Debug: x={} y={}", 42, 3.14);

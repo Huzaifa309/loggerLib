@@ -27,10 +27,12 @@ A C++ logging library that provides a clean, simple interface for logging with a
    - Just `#include "logger.h"` or `#include "loggerwrapper.h"`
    - Link to `/usr/local/lib/libloggerlib.a`
    - **You do NOT need to include or link to Quill or fmt yourself.**
-   - You can use `info_fast`, `warn_fast`, etc. with fmt-style formatting and any arguments:
+   - You can use `info_fast`, `warn_fast`, etc. with fmt-style formatting and any arguments (format string can be a variable or literal):
      ```cpp
      logger.info_fast("Hello {} this is Huzaifa {}", i, "Ahmed");
      wrapper.info_fast(0, "Shard {}: value={}", shard_id, value);
+     const char* fmt = "User {} did {}";
+     logger.info_fast(fmt, username, action);
      ```
 
 4. **CMake Example for your project:**
@@ -51,10 +53,10 @@ A C++ logging library that provides a clean, simple interface for logging with a
 
 ## Features
 
-- **Ultra-Fast Logging**: Direct fmt-style logging methods with zero stringstream overhead (use `{}` placeholders)
+- **Header-Only Logger**: `logger.h` is header-only, no PIMPL, easy to use and integrate
+- **Ultra-Fast Logging**: Direct fmt-style logging methods (use `{}` placeholders)
 - **Clean Interface**: No Quill or fmt includes required in user code
 - **Smart Log Rotation**: Automatic file rotation with timestamped filenames
-- **PIMPL Pattern**: Complete encapsulation of internal implementation details
 - **Manual Log Level Control**: Set and get log levels at runtime
 - **Sharded Logging**: High-performance logging across multiple files
 - **Thread-Safe**: Built on Quill's thread-safe foundation
@@ -120,16 +122,22 @@ int main() {
     logger.error("An error occurred");
     logger.debug("Debug information");
     
-    // Ultra-fast logging (fmt-style, no stringstream, direct formatting)
-    logger.info_fast("User {} logged in at {}", "alice", 1234567890);
-    logger.warn_fast("Low disk space: {}% remaining", 42);
+    // FMT-style logging (format string can be a variable or literal)
+    int user_id = 42;
+    std::string username = "alice";
+    logger.info_fast("User {} logged in with id {}", username, user_id);
+    logger.warn_fast("Low disk space: {}% remaining", 15);
     logger.error_fast("Failed to open file: {}", "/tmp/data.txt");
     logger.debug_fast("Debug: x={} y={}", 42, 3.14);
+    
+    // You can use a variable as the format string
+    const char* fmt = "User {} performed action {}";
+    logger.info_fast(fmt, username, "logout");
     return 0;
 }
 ```
 
-**Note:** You do NOT need to include any Quill or fmt headers. The logger library vendors and exposes everything you need for fmt-style logging.
+**Note:** You do NOT need to include any Quill or fmt headers. The logger library vendors and exposes everything you need for fmt-style logging. The `*_fast` methods use `fmtquill::format` internally, so the format string can be a variable or a literal.
 
 ### Manual Log Level Control
 
@@ -197,65 +205,43 @@ int main() {
 ### Example Program
 
 ```cpp
+#include <iostream>
 #include "logger.h"
 #include "loggerwrapper.h"
-#include <iostream>
-#include <chrono>
-#include <sstream>
+
 int main() {
-    std::cout << "=== LoggerLib Ultra-Fast Logging Demo ===" << std::endl;
-    
-    // Example 1: Single logger with 10MB rotation
-    Logger logger("logs/myapp.log", 10 * 1024 * 1024);
-    
-    logger.info_fast("Application started");
-    logger.warn_fast("This is a test with {} items", 42);
-    logger.error_fast("Error occurred at line {}", 123);
-    logger.debug_fast("Debug info: x={} y={}", 42, 3.14);
-    
-    // Example 2: Sharded logger with 5MB rotation per shard
+    // Create a logger with 10MB rotation
+    Logger logger("logs/my_app.log", 10 * 1024 * 1024);
+
+    // Basic logging
+    logger.info("Application started");
+    logger.warn("This is a warning");
+    logger.error("An error occurred");
+    logger.debug("Debug information");
+
+    // FMT-style logging (works with any format string, literal or variable)
+    int user_id = 42;
+    std::string username = "alice";
+    logger.info_fast("User {} logged in with id {}", username, user_id);
+    logger.warn_fast("Low disk space: {}% remaining", 15);
+    logger.error_fast("Failed to open file: {}", "/tmp/data.txt");
+    logger.debug_fast("Debug: x={} y={}", 42, 3.14);
+
+    // Sharded logging with LoggerWrapper
     LoggerWrapper wrapper(2, "logs/sharded", 5 * 1024 * 1024);
-    wrapper.info_fast(0, "Shard 0 message");
-    wrapper.info_fast(1, "Shard 1 message");
-    
-    // Example 3: Performance comparison (slow vs fast methods)
-    std::cout << "\n=== Performance Test ===" << std::endl;
-    
-    // SLOW method (stringstream)
-    auto start = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < 1000; ++i) {
-        std::ostringstream oss;
-        oss << "Processing request: " << i << " with data: " << "data" << i;
-        logger.info(oss.str());
-    }
-    auto slow_end = std::chrono::high_resolution_clock::now();
-    
-    // FAST method (fmt-style)
-    auto fast_start = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < 1000; ++i) {
-        logger.info_fast("Processing request: {} with data: {}{}", i, "data", i);
-    }
-    auto fast_end = std::chrono::high_resolution_clock::now();
-    
-    auto slow_duration = std::chrono::duration_cast<std::chrono::microseconds>(slow_end - start);
-    auto fast_duration = std::chrono::duration_cast<std::chrono::microseconds>(fast_end - fast_start);
-    
-    std::cout << "Slow method (stringstream): " << slow_duration.count() << " microseconds" << std::endl;
-    std::cout << "Fast method (fmt-style): " << fast_duration.count() << " microseconds" << std::endl;
-    std::cout << "Speedup: " << static_cast<double>(slow_duration.count()) / fast_duration.count() << "x faster!" << std::endl;
-    
-    // Example 4: Small file rotation test (1KB)
-    Logger test_logger("logs/rotation_test.log", 1024);
-    for (int i = 0; i < 100; ++i) {
-        test_logger.info_fast("Test log entry {} - This is a long message to fill up the file quickly for rotation testing.", i);
-    }
-    
-    std::cout << "\nLogging completed! Check the generated log files in the logs folder:" << std::endl;
-    std::cout << "- logs/myapp.log (10MB rotation)" << std::endl;
-    std::cout << "- logs/sharded_shard_0.log (5MB rotation)" << std::endl;
-    std::cout << "- logs/sharded_shard_1.log (5MB rotation)" << std::endl;
-    std::cout << "- logs/rotation_test.log (1KB rotation - should have multiple .1.log, .2.log files)" << std::endl;
-    
+    wrapper.info_fast(0, "Shard {} message: {}", 0, "hello");
+    wrapper.info_fast(1, "Shard {} message: {}", 1, "world");
+
+    // Log level control
+    logger.set_log_level(LogLevel::WARNING);
+    logger.info("This info will NOT be logged (level is WARNING)");
+    logger.warn("This warning WILL be logged");
+
+    // Demonstrate that format string can be a variable (since we use fmtquill::format)
+    const char* fmt = "User {} performed action {}";
+    logger.info_fast(fmt, username, "logout");
+
+    std::cout << "Logging complete. Check the logs directory for output." << std::endl;
     return 0;
 }
 ```
