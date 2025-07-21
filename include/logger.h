@@ -37,7 +37,7 @@ public:
     void error(const std::string& message);
     void debug(const std::string& message);
 
-    // Ultra-fast formatting methods using fmtquill
+    // Ultra-fast logging: fmt-style, variadic, user does not need to include fmt/quill
     template<typename... Args>
     void info_fast(const std::string& fmt, Args&&... args) {
         this->log_fast("info", fmtquill::format(fmt, std::forward<Args>(args)...));

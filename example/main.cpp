@@ -1,3 +1,7 @@
+// Example: LoggerLib - Ultra-Fast Logging Demo
+// NOTE: You do NOT need to include any Quill or fmt headers. Just include logger.h/loggerwrapper.h.
+// You can use fmt-style formatting with any arguments in info_fast, warn_fast, error_fast, debug_fast.
+
 #include "logger.h"
 #include "loggerwrapper.h"
 #include <iostream>
@@ -59,7 +63,7 @@ int main() {
     }
     auto slow_end = std::chrono::high_resolution_clock::now();
     
-    // FAST method (direct concatenation)
+    // FAST method (fmt-style)
     auto fast_start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < 1000; ++i) {
         logger.info_fast("Processing request: {} with data: {}{}", i, "data", i);
@@ -70,7 +74,7 @@ int main() {
     auto fast_duration = std::chrono::duration_cast<std::chrono::microseconds>(fast_end - fast_start);
     
     std::cout << "Slow method (stringstream): " << slow_duration.count() << " microseconds" << std::endl;
-    std::cout << "Fast method (direct): " << fast_duration.count() << " microseconds" << std::endl;
+    std::cout << "Fast method (fmt-style): " << fast_duration.count() << " microseconds" << std::endl;
     std::cout << "Speedup: " << static_cast<double>(slow_duration.count()) / fast_duration.count() << "x faster!" << std::endl;
     
     // Example 4: Small file size for testing rotation (1KB) in logs folder

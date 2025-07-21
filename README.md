@@ -1,11 +1,58 @@
 # LoggerLib
 
-A C++ logging library that provides a clean, simple interface for logging with automatic Quill C++ integration (completely hidden from users).
+A C++ logging library that provides a clean, simple interface for logging with automatic Quill C++ integration (completely hidden from users, but available for fmt-style logging).
+
+---
+
+## How to Use This Logger Library in Your Project
+
+1. **Clone and build the library:**
+   ```bash
+   git clone https://github.com/Huzaifa309/loggerLib
+   cd loggerLib
+   mkdir build && cd build
+   cmake ..
+   make -j$(nproc)
+   ```
+2. **Install the library (requires sudo):**
+   ```bash
+   sudo make install
+   ```
+   This will install:
+   - `logger.h`, `loggerwrapper.h` to `/usr/local/include/`
+   - All required Quill and bundled fmt headers to `/usr/local/include/quill/bundled/fmt/`
+   - The static library to `/usr/local/lib/libloggerlib.a`
+
+3. **In your own project:**
+   - Just `#include "logger.h"` or `#include "loggerwrapper.h"`
+   - Link to `/usr/local/lib/libloggerlib.a`
+   - **You do NOT need to include or link to Quill or fmt yourself.**
+   - You can use `info_fast`, `warn_fast`, etc. with fmt-style formatting and any arguments:
+     ```cpp
+     logger.info_fast("Hello {} this is Huzaifa {}", i, "Ahmed");
+     wrapper.info_fast(0, "Shard {}: value={}", shard_id, value);
+     ```
+
+4. **CMake Example for your project:**
+   ```cmake
+   cmake_minimum_required(VERSION 3.16)
+   project(MyApp)
+   set(CMAKE_CXX_STANDARD 17)
+   include_directories(/usr/local/include)
+   add_executable(myapp main.cpp)
+   target_link_libraries(myapp /usr/local/lib/libloggerlib.a pthread)
+   ```
+
+5. **Troubleshooting:**
+   - If you get an error like `fatal error: quill/bundled/fmt/core.h: No such file or directory`, make sure `/usr/local/include/quill/bundled/fmt/core.h` exists. If not, re-run `sudo make install` from your loggerLib build directory.
+   - Do **not** add or link to system Quill or fmt. All dependencies are vendored and installed for you.
+
+---
 
 ## Features
 
 - **Ultra-Fast Logging**: Direct fmt-style logging methods with zero stringstream overhead (use `{}` placeholders)
-- **Clean Interface**: No Quill dependencies exposed to users
+- **Clean Interface**: No Quill or fmt includes required in user code
 - **Smart Log Rotation**: Automatic file rotation with timestamped filenames
 - **PIMPL Pattern**: Complete encapsulation of internal implementation details
 - **Manual Log Level Control**: Set and get log levels at runtime
@@ -82,6 +129,8 @@ int main() {
 }
 ```
 
+**Note:** You do NOT need to include any Quill or fmt headers. The logger library vendors and exposes everything you need for fmt-style logging.
+
 ### Manual Log Level Control
 
 ```cpp
@@ -115,30 +164,9 @@ int main() {
 }
 ```
 
-### Available Log Levels
-
-```cpp
-enum class LogLevel {
-    DEBUG,    // Most verbose - shows all messages
-    INFO,     // Information messages
-    WARNING,  // Warning messages
-    ERROR     // Only error messages
-};
-```
-
 ### Sharded Logging (Ultra-Fast)
 
 The `LoggerWrapper` provides high-performance sharded logging across multiple files, ideal for applications that need to separate logs by different components or threads.
-
-#### Constructor
-```cpp
-LoggerWrapper(uint8_t shard_count, const std::string& log_file_prefix, size_t max_file_size = 0)
-```
-
-**Parameters:**
-- `shard_count`: Number of shards (0-255)
-- `log_file_prefix`: Base filename for log files
-- `max_file_size`: Maximum file size in bytes before rotation (0 = no rotation)
 
 #### Basic Usage
 
@@ -155,244 +183,18 @@ int main() {
     wrapper.error(2, "Database connection failed");
     wrapper.debug(0, "Debug information for shard 0");
     
-    return 0;
-}
-```
-
-#### Ultra-Fast Logging
-
-```cpp
-#include "loggerwrapper.h"
-
-int main() {
-    // Create a sharded logger with 3 shards
-    LoggerWrapper wrapper(3, "my_app");
-    
-    // Ultra-fast logging to different shards (fmt-style, no stringstream overhead)
+    // Ultra-fast logging to different shards (fmt-style)
     for (uint8_t i = 0; i < 3; ++i) {
-        wrapper.info_fast(i, "Shard {} processed batch {}", static_cast<int>(i), 100 + i);
-        wrapper.warn_fast(i, "Shard {} memory usage: {}%", static_cast<int>(i), 85.5);
-        wrapper.error_fast(i, "Shard {} error code: {}", static_cast<int>(i), 404);
-        wrapper.debug_fast(i, "Shard {} debug: x={} y={}", static_cast<int>(i), 42, 3.14);
+        wrapper.info_fast(i, "Shard {} processed batch {}", i, 100 + i);
+        wrapper.warn_fast(i, "Shard {} memory usage: {}%", i, 85.5);
+        wrapper.error_fast(i, "Shard {} error code: {}", i, 404);
+        wrapper.debug_fast(i, "Shard {} debug: x={} y={}", i, 42, 3.14);
     }
-    
     return 0;
 }
 ```
 
-#### Available Methods
-
-**Standard Logging (with string formatting):**
-- `info(shard_id, message)` - Log info message to specified shard
-- `warn(shard_id, message)` - Log warning message to specified shard  
-- `error(shard_id, message)` - Log error message to specified shard
-- `debug(shard_id, message)` - Log debug message to specified shard
-
-**Ultra-Fast Logging (fmt-style, no stringstream):**
-- `info_fast(shard_id, fmt, args...)` - Fast info logging with fmt-style formatting
-- `warn_fast(shard_id, fmt, args...)` - Fast warning logging with fmt-style formatting
-- `error_fast(shard_id, fmt, args...)` - Fast error logging with fmt-style formatting
-- `debug_fast(shard_id, fmt, args...)` - Fast debug logging with fmt-style formatting
-
-**Error Handling:**
-- Invalid shard IDs are safely ignored (no crash)
-- Shard ID must be less than the total number of shards
-- Each shard operates independently with its own log file
-
-#### Log Level Control
-
-```cpp
-#include "loggerwrapper.h"
-
-int main() {
-    LoggerWrapper wrapper(3, "my_app");
-    
-    // Set log level for a specific shard
-    wrapper.set_log_level(0, LogLevel::DEBUG);  // Shard 0: show all messages
-    wrapper.set_log_level(1, LogLevel::WARNING); // Shard 1: only warnings and errors
-    wrapper.set_log_level(2, LogLevel::ERROR);   // Shard 2: only errors
-    
-    // Set log level for all shards at once
-    wrapper.set_log_level_all(LogLevel::INFO);
-    
-    // Check current log level of a shard
-    LogLevel current_level = wrapper.get_log_level(0);
-    
-    // Test logging with different levels
-    wrapper.debug(0, "This will appear (DEBUG level)");
-    wrapper.info(1, "This will appear (INFO level)");
-    wrapper.warn(2, "This will appear (WARNING level)");
-    wrapper.error(2, "This will appear (ERROR level)");
-    
-    return 0;
-}
-```
-
-**Available Log Level Methods:**
-- `set_log_level(shard_id, level)` - Set log level for a specific shard
-- `set_log_level_all(level)` - Set log level for all shards
-- `get_log_level(shard_id)` - Get current log level of a specific shard
-
-### Log Rotation
-
-The library supports automatic log rotation with configurable file sizes:
-
-```cpp
-// Create logger with 1MB rotation
-Logger logger("app.log", 1024 * 1024);
-
-// Create logger with 100MB rotation  
-Logger logger("app.log", 100 * 1024 * 1024);
-
-// Create logger without rotation
-Logger logger("app.log", 0);
-```
-
-When rotation occurs, files are renamed with timestamps:
-- `app.log` - Current log file
-- `app_20250710_164300.1.log` - First rotated file (July 10, 2025 at 16:43:00)
-- `app_20250710_164126.2.log` - Second rotated file
-- etc.
-
-## Integration in Other Projects
-
-### Using the pre-built library (Recommended)
-
-The library comes with a pre-built static library in the `lib/` folder:
-
-```cmake
-# In your CMakeLists.txt
-cmake_minimum_required(VERSION 3.16)
-project(MyApp)
-
-set(CMAKE_CXX_STANDARD 17)
-
-# Add LoggerLib headers
-include_directories(${CMAKE_SOURCE_DIR}/path/to/loggerLib/include)
-
-# Add LoggerLib library
-link_directories(${CMAKE_SOURCE_DIR}/path/to/loggerLib/lib)
-
-add_executable(myapp main.cpp)
-target_link_libraries(myapp loggerlib pthread)
-```
-
-### Using the installed library
-
-```cmake
-# In your CMakeLists.txt
-cmake_minimum_required(VERSION 3.16)
-project(MyApp)
-
-set(CMAKE_CXX_STANDARD 17)
-include_directories(/usr/local/include)
-
-add_executable(myapp main.cpp)
-target_link_libraries(myapp /usr/local/lib/libloggerlib.a)
-```
-
-### Using pkg-config
-
-```bash
-g++ -std=c++17 $(pkg-config --cflags --libs loggerlib) -o myapp main.cpp
-```
-
-### Manual linking
-
-```bash
-# Using pre-built library
-g++ -std=c++17 -I/path/to/loggerLib/include -L/path/to/loggerLib/lib -lloggerlib -pthread -o myapp main.cpp
-
-# Using installed library
-g++ -std=c++17 -I/usr/local/include -L/usr/local/lib -lloggerlib -pthread -o myapp main.cpp
-```
-
-### Using as Git submodule
-
-```bash
-# In your project
-git submodule add https://github.com/Huzaifa309/loggerLib third_party/loggerLib
-
-# In your CMakeLists.txt
-add_subdirectory(third_party/loggerLib)
-target_link_libraries(myapp loggerlib)
-```
-
-## Generated Files
-
-### Basic Logger
-When using the basic logger with rotation:
-- `app.log` - Current log file
-- `app_YYYYMMDD_HHMMSS.1.log` - Rotated files with timestamps
-
-### Sharded Logger
-When using the sharded logger, the following files are created:
-- `{prefix}_shard_0.log` - First shard log file
-- `{prefix}_shard_1.log` - Second shard log file
-- `{prefix}_shard_2.log` - Third shard log file
-- etc.
-
-## Log Format
-
-Log entries follow this format:
-```
-[2025-07-10 15:39:20.020] [INFO] [12718] [example.log] Your message here
-```
-
-Components:
-- `[2025-07-10 15:39:20.020]` - Timestamp with milliseconds
-- `[INFO]` - Log level (DEBUG, INFO, WARNING, ERROR)
-- `[12718]` - Process ID
-- `[example.log]` - Logger name (filename)
-- `Your message here` - The actual log message
-
-## Build Output
-
-The build process generates:
-- `build/lib/libloggerlib.a` - Static library (in build directory)
-- `build/bin/example` - Example executable (if BUILD_EXAMPLE=ON)
-
-### Distribution
-
-After building, you can copy the library to the distribution folder:
-
-```bash
-# Use the provided script
-./copy_lib.sh
-
-# Or manually
-mkdir -p lib
-cp build/lib/libloggerlib.a lib/
-```
-
-The `lib/` folder contains the pre-built static library ready for distribution.
-
-## Architecture
-
-### PIMPL Pattern
-LoggerLib uses the PIMPL (Pointer to Implementation) pattern to completely hide the Quill dependency:
-
-- **Public Interface**: Clean, minimal headers with no Quill dependencies
-- **Private Implementation**: All Quill logic encapsulated in implementation files
-- **Template Methods**: Fast logging methods use only standard types and internal forwarding
-
-### Encapsulation Benefits
-- **No Transitive Dependencies**: Users don't need to include or link Quill
-- **Clean API**: Simple interface without implementation details
-- **Easy Integration**: Drop-in logging solution for any C++ project
-- **Version Independence**: Internal Quill version changes don't affect users
-
-## Recent Improvements
-
-- **PIMPL Implementation**: Complete encapsulation using Pointer to Implementation pattern
-- **Clean Headers**: Removed all Quill dependencies from public interface
-- **Manual Log Level Control**: Added runtime log level configuration
-- **Fixed Log Rotation**: Improved rotation behavior with proper timestamped filenames
-- **Proper Configuration**: Updated Quill integration for optimal performance and reliability
-
-## Example Program
-
-The included example demonstrates all features with comprehensive testing:
+### Example Program
 
 ```cpp
 #include "logger.h"
@@ -458,18 +260,28 @@ int main() {
 }
 ```
 
-Build and run the example:
-```bash
-cd build
-cmake -DBUILD_EXAMPLE=ON ..
-make
-./bin/example
+## CMake Integration
+
+When using the installed library, you do NOT need to add any Quill or fmt includes or link to them directly. The logger library vendors and links everything you need.
+
+**Example CMakeLists.txt for your project:**
+
+```cmake
+cmake_minimum_required(VERSION 3.16)
+project(MyApp)
+set(CMAKE_CXX_STANDARD 17)
+
+# Add LoggerLib headers
+include_directories(/usr/local/include)
+
+add_executable(myapp main.cpp)
+target_link_libraries(myapp /usr/local/lib/libloggerlib.a pthread)
 ```
 
-**What the example demonstrates:**
-- **Basic logging** with different log levels
-- **Ultra-fast logging** with variadic arguments
-- **Sharded logging** across multiple files
-- **Performance comparison** between slow and fast methods
-- **File rotation** with different sizes
-- **Multiple log files** in organized folder structure
+**Troubleshooting:**
+- If you get linker errors about missing fmt or quill symbols, make sure you are linking to the correct static library and not mixing system fmt/quill with the vendored one.
+- If you use CMake's `find_package`, ensure you do NOT link to system fmt/quill unless you want to override the vendored version.
+
+---
+
+**You can now use fmt-style logging everywhere in your code, with no extra includes or dependencies!**

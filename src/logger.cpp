@@ -173,4 +173,6 @@ void Logger::log_fast(const char* level, const std::string& msg) {
     log_fast_impl(level, msg);
 }
 
+// Template implementations for *_fast methods
+
 
