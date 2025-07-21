@@ -20,25 +20,25 @@ public:
 
     // Ultra-fast logging: fmt-style, variadic, user does not need to include fmt/quill
     template<typename... Args>
-    void info_fast(uint8_t shard_id, const std::string& fmt, Args&&... args) {
+    void info_fast(uint8_t shard_id, const char* fmt, Args&&... args) {
         if (shard_id < shard_loggers_.size()) {
             shard_loggers_[shard_id]->info_fast(fmt, std::forward<Args>(args)...);
         }
     }
     template<typename... Args>
-    void warn_fast(uint8_t shard_id, const std::string& fmt, Args&&... args) {
+    void warn_fast(uint8_t shard_id, const char* fmt, Args&&... args) {
         if (shard_id < shard_loggers_.size()) {
             shard_loggers_[shard_id]->warn_fast(fmt, std::forward<Args>(args)...);
         }
     }
     template<typename... Args>
-    void error_fast(uint8_t shard_id, const std::string& fmt, Args&&... args) {
+    void error_fast(uint8_t shard_id, const char* fmt, Args&&... args) {
         if (shard_id < shard_loggers_.size()) {
             shard_loggers_[shard_id]->error_fast(fmt, std::forward<Args>(args)...);
         }
     }
     template<typename... Args>
-    void debug_fast(uint8_t shard_id, const std::string& fmt, Args&&... args) {
+    void debug_fast(uint8_t shard_id, const char* fmt, Args&&... args) {
         if (shard_id < shard_loggers_.size()) {
             shard_loggers_[shard_id]->debug_fast(fmt, std::forward<Args>(args)...);
         }

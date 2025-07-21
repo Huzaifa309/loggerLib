@@ -21,9 +21,9 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # Vendor Quill and its bundled fmt
 add_subdirectory(third_party/quill)
 
-# Add the loggerlib static library
+# Logger is now header-only (logger.h)
+# Only loggerwrapper.cpp needs to be compiled
 add_library(loggerlib STATIC
-    src/logger.cpp
     src/loggerwrapper.cpp
 )
 

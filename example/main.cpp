@@ -1,94 +1,39 @@
-// Example: LoggerLib - Ultra-Fast Logging Demo
-// NOTE: You do NOT need to include any Quill or fmt headers. Just include logger.h/loggerwrapper.h.
-// You can use fmt-style formatting with any arguments in info_fast, warn_fast, error_fast, debug_fast.
-
+#include <iostream>
 #include "logger.h"
 #include "loggerwrapper.h"
-#include <iostream>
-#include <chrono>
-#include <sstream>
-#include <string>
 
 int main() {
-    std::cout << "=== LoggerLib Ultra-Fast Logging Demo ===" << std::endl;
-    
-    // Example 1: Single logger with 10MB rotation in logs folder
-    Logger logger("logs/myapp.log", 10 * 1024 * 1024); // 10MB rotation
-    
-    logger.info_fast("Application started");
-    logger.warn_fast("This is a test with {} items", 42);
-    logger.error_fast("Error occurred at line {}", 123);
-    logger.debug_fast("Debug info: x={} y={}", 42, 3.14);
-    
-    // Generate enough data to trigger rotation (10MB = ~10,485,760 bytes)
-    std::cout << "Generating data to trigger 10MB rotation..." << std::endl;
-    std::string large_message = "This is a very long log message that contains a lot of data to fill up the log file quickly. ";
-    large_message += "It includes multiple sentences and various types of information like user IDs, timestamps, ";
-    large_message += "error codes, and detailed descriptions of what happened in the system. ";
-    large_message += "This message is designed to be approximately 200 characters long to help us reach the 10MB limit faster. ";
-    
-    // Write enough messages to exceed 10MB (will take more iterations)
-    for (int i = 0; i < 50000; ++i) {
-        logger.info_fast("Log entry {}: {}Additional data: {}", i, large_message, i * 1000);
-        if (i % 10000 == 0) {
-            std::cout << "Generated " << i << " log entries..." << std::endl;
-        }
-    }
-    
-    // Example 2: Sharded logger with 5MB rotation per shard in logs folder
-    LoggerWrapper wrapper(2, "logs/sharded", 5 * 1024 * 1024); // 5MB rotation
-    wrapper.info_fast(0, "Shard 0 message");
-    wrapper.info_fast(1, "Shard 1 message");
-    wrapper.info_fast(0, "General message on shard 0"); // Use any shard for general messages
-    
-    // Generate data for shards to trigger rotation
-    std::cout << "Generating data for sharded logs..." << std::endl;
-    for (int i = 0; i < 20000; ++i) {
-        wrapper.info_fast(0, "Shard 0 - Log entry {}: {}Shard data: {}", i, large_message, i * 500);
-        wrapper.info_fast(1, "Shard 1 - Log entry {}: {}Shard data: {}", i, large_message, i * 500);
-        if (i % 5000 == 0) {
-            std::cout << "Generated " << i << " sharded log entries..." << std::endl;
-        }
-    }
-    
-    // Example 3: Performance test
-    std::cout << "\n=== Performance Test ===" << std::endl;
-    
-    // SLOW method (stringstream)
-    auto start = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < 1000; ++i) {
-        std::ostringstream oss;
-        oss << "Processing request: " << i << " with data: " << "data" << i;
-        logger.info(oss.str());
-    }
-    auto slow_end = std::chrono::high_resolution_clock::now();
-    
-    // FAST method (fmt-style)
-    auto fast_start = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < 1000; ++i) {
-        logger.info_fast("Processing request: {} with data: {}{}", i, "data", i);
-    }
-    auto fast_end = std::chrono::high_resolution_clock::now();
-    
-    auto slow_duration = std::chrono::duration_cast<std::chrono::microseconds>(slow_end - start);
-    auto fast_duration = std::chrono::duration_cast<std::chrono::microseconds>(fast_end - fast_start);
-    
-    std::cout << "Slow method (stringstream): " << slow_duration.count() << " microseconds" << std::endl;
-    std::cout << "Fast method (fmt-style): " << fast_duration.count() << " microseconds" << std::endl;
-    std::cout << "Speedup: " << static_cast<double>(slow_duration.count()) / fast_duration.count() << "x faster!" << std::endl;
-    
-    // Example 4: Small file size for testing rotation (1KB) in logs folder
-    Logger test_logger("logs/rotation_test.log", 1024); // 1KB rotation
-    std::cout << "Generating data for 1KB rotation test..." << std::endl;
-    for (int i = 0; i < 100; ++i) {
-        test_logger.info_fast("Test log entry {} - This is a long message to fill up the file quickly for rotation testing. Additional data: {} More text to ensure we reach the 1KB limit and trigger rotation.", i, i * 100);
-    }
-    
-    std::cout << "\nLogging completed! Check the generated log files in the logs folder:" << std::endl;
-    std::cout << "- logs/myapp.log (10MB rotation)" << std::endl;
-    std::cout << "- logs/sharded_shard_0.log (5MB rotation)" << std::endl;
-    std::cout << "- logs/sharded_shard_1.log (5MB rotation)" << std::endl;
-    std::cout << "- logs/rotation_test.log (1KB rotation - should have multiple .1.log, .2.log files)" << std::endl;
-    
+    // Create a logger with 10MB rotation
+    Logger logger("logs/my_app.log", 10 * 1024 * 1024);
+
+    // Basic logging
+    logger.info("Application started");
+    logger.warn("This is a warning");
+    logger.error("An error occurred");
+    logger.debug("Debug information");
+
+    // FMT-style logging (works with any format string, literal or variable)
+    int user_id = 42;
+    std::string username = "alice";
+    logger.info_fast("User {} logged in with id {}", username, user_id);
+    logger.warn_fast("Low disk space: {}% remaining", 15);
+    logger.error_fast("Failed to open file: {}", "/tmp/data.txt");
+    logger.debug_fast("Debug: x={} y={}", 42, 3.14);
+
+    // Sharded logging with LoggerWrapper
+    LoggerWrapper wrapper(2, "logs/sharded", 5 * 1024 * 1024);
+    wrapper.info_fast(0, "Shard {} message: {}", 0, "hello");
+    wrapper.info_fast(1, "Shard {} message: {}", 1, "world");
+
+    // Log level control
+    logger.set_log_level(LogLevel::WARNING);
+    logger.info("This info will NOT be logged (level is WARNING)");
+    logger.warn("This warning WILL be logged");
+
+    // Demonstrate that format string can be a variable (since we use fmtquill::format)
+    const char* fmt = "User {} performed action {}";
+    logger.info_fast(fmt, username, "logout");
+
+    std::cout << "Logging complete. Check the logs directory for output." << std::endl;
     return 0;
 } 
