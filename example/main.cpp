@@ -22,10 +22,18 @@ int main() {
     logger.debug_fast("Debug: x={} y={}, {} {}", 42, 3.14, "hello", "world");
 
     // Sharded logging with LoggerWrapper
-    LoggerWrapper wrapper(2, "logs/sharded", 5 * 1024 * 1024);
+    LoggerWrapper *wrapper = new LoggerWrapper(2, "logs/sharded", 5 * 1024 * 1024);
+    int shard_id = 0;
+    wrapper->info_fast(shard_id, "Shard {} message: {}", shard_id, "hello");
+    wrapper->info_fast(shard_id, "Shard {} message: {}", shard_id, "world");
+    wrapper->debug_fast(shard_id, "Shard {} This is a debugging message ", shard_id);
 
-    wrapper.info_fast(0, "Shard {} message: {}", 0, "hello");
-    wrapper.info_fast(1, "Shard {} message: {}", 1, "world");
+    // shard_id = 1;
+    // wrapper.info_fast(shard_id, "Shard {} message: {}", shard_id, "hello");
+    // wrapper.info_fast(shard_id, "Shard {} message: {}", shard_id, "world");
+    // wrapper.debug_fast(shard_id, "Shard {} This is a debugging message ", shard_id);
+
+    delete wrapper;
 
     // Log level control
     logger.set_log_level(LogLevel::WARNING);
