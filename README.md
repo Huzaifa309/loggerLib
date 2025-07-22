@@ -10,10 +10,13 @@ A C++ logging library that provides a clean, simple interface for logging with a
    ```bash
    git clone https://github.com/Huzaifa309/loggerLib
    cd loggerLib
+   # If you are using submodules (recommended):
+   git submodule update --init --recursive
    mkdir build && cd build
    cmake ..
    make -j$(nproc)
    ```
+   **Note:** If you do not run the submodule command, the build will fail with an error about missing Quill. Always run `git submodule update --init --recursive` after cloning.
 2. **Install the library (requires sudo):**
    ```bash
    sudo make install
