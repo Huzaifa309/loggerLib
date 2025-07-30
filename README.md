@@ -4,19 +4,57 @@ A C++ logging library that provides a clean, simple interface for logging with a
 
 ---
 
-## How to Use This Logger Library in Your Project
+## Quick Start for Users
+
+If you just want to **use** the logger library in your project:
+
+1. **Install the prebuilt library:**
+   ```bash
+   # Download and install from releases, or contact maintainer
+   # The library will be installed to /usr/local/
+   ```
+
+2. **Use in your project:**
+   ```cpp
+   #include "logger.h"
+   
+   int main() {
+       Logger logger("my_app.log", 10 * 1024 * 1024);
+       logger.info_fast("Hello {} from LoggerLib!", "World");
+       return 0;
+   }
+   ```
+
+3. **CMake setup:**
+   ```cmake
+   cmake_minimum_required(VERSION 3.16)
+   project(MyApp)
+   set(CMAKE_CXX_STANDARD 17)
+   include_directories(/usr/local/include)
+   add_executable(myapp main.cpp)
+   target_link_libraries(myapp /usr/local/lib/libloggerlib.a pthread)
+   ```
+
+**That's it! No submodules, no complex setup.**
+
+---
+
+## Building from Source (Developers)
+
+If you want to **build the library from source** or **contribute to development**:
 
 1. **Clone and build the library:**
    ```bash
    git clone https://github.com/Huzaifa309/loggerLib
    cd loggerLib
-   # If you are using submodules (recommended):
+   # IMPORTANT: Initialize submodules (needed for Quill dependency)
    git submodule update --init --recursive
    mkdir build && cd build
    cmake ..
    make -j$(nproc)
    ```
    **Note:** If you do not run the submodule command, the build will fail with an error about missing Quill. Always run `git submodule update --init --recursive` after cloning.
+
 2. **Install the library (requires sudo):**
    ```bash
    sudo make install
@@ -26,7 +64,20 @@ A C++ logging library that provides a clean, simple interface for logging with a
    - All required Quill and bundled fmt headers to `/usr/local/include/quill/bundled/fmt/`
    - The static library to `/usr/local/lib/libloggerlib.a`
 
-3. **In your own project:**
+3. **Build with example:**
+   ```bash
+   cmake -DBUILD_EXAMPLE=ON ..
+   make -j$(nproc)
+   ./bin/example  # or ./example
+   ```
+
+---
+
+## How to Use This Logger Library in Your Project
+
+**For installed library users (recommended):**
+
+1. **In your own project:**
    - Just `#include "logger.h"` or `#include "loggerwrapper.h"`
    - Link to `/usr/local/lib/libloggerlib.a`
    - **You do NOT need to include or link to Quill or fmt yourself.**
@@ -38,7 +89,7 @@ A C++ logging library that provides a clean, simple interface for logging with a
      logger.info_fast(fmt, username, action);
      ```
 
-4. **CMake Example for your project:**
+2. **CMake Example for your project:**
    ```cmake
    cmake_minimum_required(VERSION 3.16)
    project(MyApp)
@@ -48,8 +99,8 @@ A C++ logging library that provides a clean, simple interface for logging with a
    target_link_libraries(myapp /usr/local/lib/libloggerlib.a pthread)
    ```
 
-5. **Troubleshooting:**
-   - If you get an error like `fatal error: quill/bundled/fmt/core.h: No such file or directory`, make sure `/usr/local/include/quill/bundled/fmt/core.h` exists. If not, re-run `sudo make install` from your loggerLib build directory.
+3. **Troubleshooting:**
+   - If you get an error like `fatal error: quill/bundled/fmt/core.h: No such file or directory`, make sure `/usr/local/include/quill/bundled/fmt/core.h` exists. If not, the library wasn't properly installed.
    - Do **not** add or link to system Quill or fmt. All dependencies are vendored and installed for you.
 
 ---
