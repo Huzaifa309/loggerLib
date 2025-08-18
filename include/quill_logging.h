@@ -24,18 +24,21 @@ enum class LogLevel {
   CRITICAL = 5
 };
 
-class Logger {
+class qLogger {
 public:
-  Logger() { init_backend(); }
-  explicit Logger(const std::string &log_file, size_t max_file_size = 0) {
-    initialize(log_file, LogLevel::DEBUG, max_file_size);
+  static qLogger &getInstance() {
+    static qLogger instance;
+    return instance;
   }
-  explicit Logger(const std::string &log_file, LogLevel level,
-                  size_t max_file_size = 0) {
-    initialize(log_file, level, max_file_size);
-  }
-  ~Logger() = default;
 
+  qLogger(const qLogger &) = delete;
+  qLogger &operator=(const qLogger &) = delete;
+  qLogger(qLogger &&) = delete;
+  qLogger &operator=(qLogger &&) = delete;
+
+  ~qLogger() = default;
+
+  // Default Call for getInstance():
   void initialize(const std::string &log_file, size_t max_file_size = 0) {
     initialize(log_file, LogLevel::DEBUG, max_file_size);
   }
@@ -110,6 +113,7 @@ public:
 
   LogLevel get_log_level() const { return current_level_; }
 
+  // Logging Function Takes message in {} fmt straightaway
   void info(const std::string &message) {
     if (quill_logger_) {
       LOG_INFO(quill_logger_, "{}", message);

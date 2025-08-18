@@ -6,12 +6,24 @@
 #include <string>
 #include <vector>
 
-class LoggerWrapper {
+class Sharded_Logger {
 public:
-  LoggerWrapper();
-  LoggerWrapper(uint8_t shard_count, const std::string &log_file_prefix,
-                size_t max_file_size = 0);
-  ~LoggerWrapper();
+  static Sharded_Logger &getInstance() {
+    static Sharded_Logger instance;
+    return instance;
+  }
+
+  Sharded_Logger(const Sharded_Logger &) = delete;
+  Sharded_Logger &operator=(const Sharded_Logger &) = delete;
+  Sharded_Logger(Sharded_Logger &&) = delete;
+  Sharded_Logger &operator=(Sharded_Logger &&) = delete;
+
+  //   Sharded_Logger(uint8_t shard_count, const std::string &log_file_prefix,
+  //                  size_t max_file_size = 0);
+  ~Sharded_Logger();
+
+  void initialize(uint8_t shard_count, const std::string &log_file_prefix,
+                  size_t max_file_size = 0);
 
   // Clean interface methods
   void info(uint8_t shard_id, const std::string &message);
@@ -52,5 +64,6 @@ public:
   LogLevel get_log_level(uint8_t shard_id) const;
 
 private:
-  std::vector<std::unique_ptr<Logger>> shard_loggers_;
+  Sharded_Logger() = default;
+  std::vector<std::unique_ptr<qLogger>> shard_loggers_;
 };

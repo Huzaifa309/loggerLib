@@ -16,7 +16,7 @@ If you just want to **use** the logger library in your project:
 
 2. **Use in your project:**
    ```cpp
-   #include "logger.h"
+   #include "loggersingleton.h"
    
    int main() {
        Logger logger("my_app.log", 10 * 1024 * 1024);
