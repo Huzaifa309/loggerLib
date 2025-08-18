@@ -1,5 +1,6 @@
 #pragma once
 
+#include "log_level.h"
 #include "quill/Backend.h"
 #include "quill/Frontend.h"
 #include "quill/LogMacros.h"
@@ -15,15 +16,7 @@
 #include <type_traits>
 #include <utility>
 
-// Log levels enum (clean interface, no Quill exposure)
-enum class LogLevel {
-  TRACE = 0,
-  DEBUG = 1,
-  INFO = 2,
-  WARNING = 3,
-  ERROR = 4,
-  CRITICAL = 5
-};
+// Use shared LogLevel
 
 class qLogger {
 public:
@@ -53,7 +46,7 @@ public:
           sink = quill::Frontend::create_or_get_sink<quill::RotatingFileSink>(
               log_file, [max_file_size] {
                 quill::RotatingFileSinkConfig cfg;
-                cfg.set_open_mode('w');
+                cfg.set_open_mode('a');
                 cfg.set_filename_append_option(
                     quill::FilenameAppendOption::StartDateTime);
                 cfg.set_rotation_max_file_size(max_file_size);

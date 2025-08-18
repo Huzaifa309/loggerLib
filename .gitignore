@@ -1,3 +1,4 @@
 build/
 # Keep the lib folder in root for distribution
 !lib/
+logs/

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "log_level.h"
 #include "quill/Backend.h"
 #include "quill/Frontend.h"
 #include "quill/LogMacros.h"
@@ -26,15 +27,8 @@ public:
 
   ~Sharded_Logger();
 
-  // Own log level enum (does not expose Quill types)
-  enum class LogLevel {
-    TRACE = 0,
-    DEBUG = 1,
-    INFO = 2,
-    WARNING = 3,
-    ERROR = 4,
-    CRITICAL = 5
-  };
+  // Use shared LogLevel but keep the same API surface
+  using LogLevel = ::LogLevel;
 
   void initialize(uint8_t shard_count, const std::string &log_file_prefix,
                   size_t max_file_size = 0);
