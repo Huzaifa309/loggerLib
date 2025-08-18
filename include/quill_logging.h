@@ -10,6 +10,7 @@
 #include <cstring>
 #include <iostream>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -44,40 +45,43 @@ public:
   }
   void initialize(const std::string &log_file, LogLevel level,
                   size_t max_file_size = 0) {
-    init_backend();
-    try {
-      std::shared_ptr<quill::Sink> sink;
-      if (max_file_size > 0) {
-        sink = quill::Frontend::create_or_get_sink<quill::RotatingFileSink>(
-            log_file, [max_file_size] {
-              quill::RotatingFileSinkConfig cfg;
-              cfg.set_open_mode('w');
-              cfg.set_filename_append_option(
-                  quill::FilenameAppendOption::StartDateTime);
-              cfg.set_rotation_max_file_size(max_file_size);
-              cfg.set_max_backup_files(5);
-              cfg.set_overwrite_rolled_files(false);
-              return cfg;
-            }());
-      } else {
-        sink = quill::Frontend::create_or_get_sink<quill::FileSink>(
-            log_file,
-            [] {
-              quill::FileSinkConfig cfg;
-              cfg.set_open_mode('a');
-              cfg.set_filename_append_option(quill::FilenameAppendOption::None);
-              return cfg;
-            }(),
-            quill::FileEventNotifier{});
+    std::call_once(init_flag_, [&] {
+      init_backend();
+      try {
+        std::shared_ptr<quill::Sink> sink;
+        if (max_file_size > 0) {
+          sink = quill::Frontend::create_or_get_sink<quill::RotatingFileSink>(
+              log_file, [max_file_size] {
+                quill::RotatingFileSinkConfig cfg;
+                cfg.set_open_mode('w');
+                cfg.set_filename_append_option(
+                    quill::FilenameAppendOption::StartDateTime);
+                cfg.set_rotation_max_file_size(max_file_size);
+                cfg.set_max_backup_files(5);
+                cfg.set_overwrite_rolled_files(false);
+                return cfg;
+              }());
+        } else {
+          sink = quill::Frontend::create_or_get_sink<quill::FileSink>(
+              log_file,
+              [] {
+                quill::FileSinkConfig cfg;
+                cfg.set_open_mode('a');
+                cfg.set_filename_append_option(
+                    quill::FilenameAppendOption::None);
+                return cfg;
+              }(),
+              quill::FileEventNotifier{});
+        }
+        quill_logger_ = quill::Frontend::create_or_get_logger(
+            log_file, std::move(sink),
+            "[%(time)] [%(log_level)] [%(process_id)] [%(logger)] %(message)",
+            "%Y-%m-%d %H:%M:%S.%Qms ", quill::Timezone::LocalTime);
+        set_log_level(level);
+      } catch (const std::exception &ex) {
+        std::cerr << "Log initialization failed: " << ex.what() << std::endl;
       }
-      quill_logger_ = quill::Frontend::create_or_get_logger(
-          log_file, std::move(sink),
-          "[%(time)] [%(log_level)] [%(process_id)] [%(logger)] %(message)",
-          "%Y-%m-%d %H:%M:%S.%Qms ", quill::Timezone::LocalTime);
-      set_log_level(level);
-    } catch (const std::exception &ex) {
-      std::cerr << "Log initialization failed: " << ex.what() << std::endl;
-    }
+    });
   }
 
   void set_log_level(LogLevel level) {
@@ -158,6 +162,8 @@ private:
       quill::Backend::start();
     }
   }
+  qLogger() = default;
+  std::once_flag init_flag_;
   quill::Logger *quill_logger_ = nullptr;
   LogLevel current_level_ = LogLevel::INFO;
 };
