@@ -24,7 +24,7 @@ add_subdirectory(third_party/quill)
 # Logger is now header-only (logger.h)
 # Only loggerwrapper.cpp needs to be compiled
 add_library(loggerlib STATIC
-    src/loggerwrapper.cpp
+    src/sharded_logging.cpp
 )
 
 # Link Quill (which brings in bundled fmt)
