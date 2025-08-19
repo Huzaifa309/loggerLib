@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(LoggerLib VERSION 1.0.0 LANGUAGES CXX)
+project(updtd_logger_quill VERSION 1.0.0 LANGUAGES CXX)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -23,16 +23,17 @@ add_subdirectory(third_party/quill)
 
 # Logger is now header-only (logger.h)
 # Only loggerwrapper.cpp needs to be compiled
-add_library(loggerlib STATIC
-    src/sharded_logging.cpp
-)
+add_library(updtd_logger_quill STATIC src/sharded_logging.cpp)
+
+# change produced file name to libmylogs.a
+set_target_properties(updtd_logger_quill PROPERTIES OUTPUT_NAME "updtd_logger_quill")
 
 # Link Quill (which brings in bundled fmt)
-target_link_libraries(loggerlib PRIVATE quill)
+target_link_libraries(updtd_logger_quill PRIVATE quill)
 
 # Install headers and static library
 install(DIRECTORY include/ DESTINATION include)
-install(TARGETS loggerlib DESTINATION lib)
+install(TARGETS updtd_logger_quill DESTINATION lib)
 install(DIRECTORY third_party/quill/quill/include/ DESTINATION include)
 
 # Example target (optional)
@@ -40,12 +41,12 @@ option(BUILD_EXAMPLE "Build example program" ON)
 if(BUILD_EXAMPLE)
     include_directories(${CMAKE_SOURCE_DIR}/third_party/quill/quill/include)
     add_executable(example example/main.cpp)
-    target_link_libraries(example PRIVATE loggerlib pthread)
+    target_link_libraries(example PRIVATE updtd_logger_quill pthread)
 endif()
 
 # Note: Users do NOT need to link to system fmt or quill. All dependencies are vendored and linked via loggerlib. 
 
-target_include_directories(loggerlib PUBLIC
+target_include_directories(updtd_logger_quill PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/third_party/quill/quill/include>
     $<INSTALL_INTERFACE:include>
