@@ -8,11 +8,11 @@ echo "Copying built library to distribution folder..."
 mkdir -p lib
 
 # Copy the built library
-if [ -f "build/lib/libloggerlib.a" ]; then
-    cp build/lib/libloggerlib.a lib/
-    echo "✓ Successfully copied libloggerlib.a to lib/"
+if [ -f "build/lib/updtd_logger_quill.a" ]; then
+    cp build/lib/updtd_logger_quill.a lib/
+    echo "✓ Successfully copied updtd_logger_quill.a to lib/"
 else
-    echo "✗ Error: build/lib/libloggerlib.a not found"
+    echo "✗ Error: build/lib/updtd_logger_quill.a not found"
     echo "Please build the project first:"
     echo "  mkdir -p build && cd build"
     echo "  cmake .. && make"
