@@ -46,7 +46,7 @@ If you just want to use the library in your project:
    set(CMAKE_CXX_STANDARD 17)
    include_directories(/usr/local/include)
    add_executable(myapp main.cpp)
-   target_link_libraries(myapp /usr/local/lib/libloggerlib.a pthread)
+   target_link_libraries(myapp /usr/local/lib/libupdtd_logger_quill.a pthread)
    ```
 
 That's it. No separate Quill or fmt setup required by users.
@@ -61,6 +61,7 @@ If you want to build the library from source or contribute:
    ```bash
    git clone https://github.com/Huzaifa309/loggerLib
    cd loggerLib
+
    # IMPORTANT: Initialize submodules (needed for Quill dependency)
    git submodule update --init --recursive
    mkdir build && cd build
@@ -74,8 +75,8 @@ If you want to build the library from source or contribute:
    sudo make install
    ```
    This installs:
-   - Public headers to `/usr/local/include/` (notably `quill_logging.h`, `sharded_logging.h`)
-   - The static library to `/usr/local/lib/libloggerlib.a`
+   - Public headers to `/usr/local/include/` (notably `quill_logging.h`, `sharded_logging.h`, `loggerlib.h`,)
+   - The static library to `/usr/local/lib/libupdtd_logger_quill.a`
    - Vendored Quill headers to `/usr/local/include/`
 
 3. Build with example:
@@ -174,7 +175,7 @@ Shard filenames are generated as `"{base}_shard_{i}.log"` for `i` in `[0, shard_
 
 ## CMake Integration (Installed Library)
 
-Users do not need to add or link to system Quill or fmt. Everything is vendored and linked via `libloggerlib.a`.
+Users do not need to add or link to system Quill or fmt. Everything is vendored and linked via `libupdtd_logger_quill.a`.
 
 ```cmake
 cmake_minimum_required(VERSION 3.16)
@@ -184,7 +185,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(/usr/local/include)
 add_executable(myapp main.cpp)
 # Link pthread as well
-target_link_libraries(myapp /usr/local/lib/libloggerlib.a pthread)
+target_link_libraries(myapp /usr/local/lib/libupdtd_logger_quill.a pthread)
 ```
 
 ---
