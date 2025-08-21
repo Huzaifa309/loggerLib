@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.16)
-project(updtd_logger_quill VERSION 1.0.0 LANGUAGES CXX)
 
-# Set C++ standard
+# Project setup
+set(PROJECT_NAME updtd_logger_quill)
+project(${PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
+
+# C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Build type
+# Default build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
@@ -15,39 +18,33 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-# Include directories
-include_directories(${CMAKE_SOURCE_DIR}/include)
-
-# Vendor Quill and its bundled fmt
+# Vendor Quill (includes bundled fmt)
 add_subdirectory(third_party/quill)
 
-# Logger is now header-only (logger.h)
-# Only loggerwrapper.cpp needs to be compiled
-add_library(updtd_logger_quill STATIC src/sharded_logging.cpp)
+# Logger library
+add_library(${PROJECT_NAME} STATIC src/sharded_logging.cpp)
 
-# change produced file name to libmylogs.a
-set_target_properties(updtd_logger_quill PROPERTIES OUTPUT_NAME "updtd_logger_quill")
+# Rename produced archive
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "updtd_logger_quill")
 
-# Link Quill (which brings in bundled fmt)
-target_link_libraries(updtd_logger_quill PRIVATE quill)
+# Link dependencies
+target_link_libraries(${PROJECT_NAME} PRIVATE quill)
 
-# Install headers and static library
+# Public include paths
+target_include_directories(${PROJECT_NAME} PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/third_party/quill/quill/include>
+    $<INSTALL_INTERFACE:include>
+)
+
+# Install headers + static lib
 install(DIRECTORY include/ DESTINATION include)
-install(TARGETS updtd_logger_quill DESTINATION lib)
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
 install(DIRECTORY third_party/quill/quill/include/ DESTINATION include)
 
 # Example target (optional)
 option(BUILD_EXAMPLE "Build example program" ON)
 if(BUILD_EXAMPLE)
-    include_directories(${CMAKE_SOURCE_DIR}/third_party/quill/quill/include)
     add_executable(example example/main.cpp)
-    target_link_libraries(example PRIVATE updtd_logger_quill pthread)
+    target_link_libraries(example PRIVATE ${PROJECT_NAME} pthread)
 endif()
-
-# Note: Users do NOT need to link to system fmt or quill. All dependencies are vendored and linked via loggerlib. 
-
-target_include_directories(updtd_logger_quill PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/third_party/quill/quill/include>
-    $<INSTALL_INTERFACE:include>
-)
