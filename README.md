@@ -46,7 +46,7 @@ If you just want to use the library in your project:
    set(CMAKE_CXX_STANDARD 17)
    include_directories(/usr/local/include)
    add_executable(myapp main.cpp)
-   target_link_libraries(myapp /usr/local/lib/libupdtd_logger_quill.a pthread)
+   target_link_libraries(myapp /usr/local/lib/libquillLogger.a pthread)
    ```
 
 That's it. No separate Quill or fmt setup required by users.
@@ -76,7 +76,7 @@ If you want to build the library from source or contribute:
    ```
    This installs:
    - Public headers to `/usr/local/include/` (notably `quill_logging.h`, `sharded_logging.h`, `loggerlib.h`,)
-   - The static library to `/usr/local/lib/libupdtd_logger_quill.a`
+   - The static library to `/usr/local/lib/libquillLogger.a`
    - Vendored Quill headers to `/usr/local/include/`
 
 3. Build with example:
@@ -185,7 +185,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(/usr/local/include)
 add_executable(myapp main.cpp)
 # Link pthread as well
-target_link_libraries(myapp /usr/local/lib/libupdtd_logger_quill.a pthread)
+target_link_libraries(myapp /usr/local/lib/libquillLogger.a pthread)
 ```
 
 ---
