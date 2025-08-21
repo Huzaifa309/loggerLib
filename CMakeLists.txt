@@ -50,4 +50,4 @@ target_include_directories(updtd_logger_quill PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/third_party/quill/quill/include>
     $<INSTALL_INTERFACE:include>
-) 
+)
