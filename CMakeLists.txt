@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # Project setup
-set(PROJECT_NAME updtd_logger_quill)
+set(PROJECT_NAME quillLogger)
 project(${PROJECT_NAME} VERSION 1.0.0 LANGUAGES CXX)
 
 # C++ standard
@@ -23,9 +23,6 @@ add_subdirectory(third_party/quill)
 
 # Logger library
 add_library(${PROJECT_NAME} STATIC src/sharded_logging.cpp)
-
-# Rename produced archive
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "updtd_logger_quill")
 
 # Link dependencies
 target_link_libraries(${PROJECT_NAME} PRIVATE quill)

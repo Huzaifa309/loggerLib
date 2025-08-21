@@ -21,7 +21,7 @@
 
 class qLogger {
    public:
-    static qLogger &getInstance() {
+    static qLogger &get() {
         static qLogger instance;
         return instance;
     }
@@ -33,31 +33,32 @@ class qLogger {
 
     ~qLogger() = default;
 
-    // Default Call for getInstance():
-    void initialize(const std::string &log_file, size_t max_file_size = 0) {
-        initialize(log_file, LogLevel::DEBUG, max_file_size);
+    // Default Call for get():
+    void initialize(const std::string &logFile, size_t maxFileSize = 0) {
+        initialize(logFile, LogLevel::DEBUG, maxFileSize);
     }
-    void initialize(const std::string &log_file, LogLevel level,
-                    size_t max_file_size = 0) {
-        std::call_once(init_flag_, [&] {
+
+    void initialize(const std::string &logFile, LogLevel level,
+                    size_t maxFileSize = 0) {
+        std::call_once(_initFlag, [&] {
             init_backend();
             try {
                 std::shared_ptr<quill::Sink> sink;
-                if (max_file_size > 0) {
+                if (maxFileSize > 0) {
                     sink = quill::Frontend::create_or_get_sink<
-                        quill::RotatingFileSink>(log_file, [max_file_size] {
+                        quill::RotatingFileSink>(logFile, [maxFileSize] {
                         quill::RotatingFileSinkConfig cfg;
                         cfg.set_open_mode('a');
                         cfg.set_filename_append_option(
                             quill::FilenameAppendOption::StartDateTime);
-                        cfg.set_rotation_max_file_size(max_file_size);
+                        cfg.set_rotation_max_file_size(maxFileSize);
                         cfg.set_max_backup_files(5);
                         cfg.set_overwrite_rolled_files(false);
                         return cfg;
                     }());
                 } else {
                     sink = quill::Frontend::create_or_get_sink<quill::FileSink>(
-                        log_file,
+                        logFile,
                         [] {
                             quill::FileSinkConfig cfg;
                             cfg.set_open_mode('a');
@@ -67,8 +68,8 @@ class qLogger {
                         }(),
                         quill::FileEventNotifier{});
                 }
-                quill_logger_ = quill::Frontend::create_or_get_logger(
-                    log_file, std::move(sink),
+                _quillLogger = quill::Frontend::create_or_get_logger(
+                    logFile, std::move(sink),
                     "[%(time)] [%(log_level)] [%(process_id)] [%(logger)] "
                     "%(message)",
                     "%Y-%m-%d %H:%M:%S.%Qms ", quill::Timezone::LocalTime);
@@ -81,56 +82,56 @@ class qLogger {
     }
 
     void set_log_level(LogLevel level) {
-        if (!quill_logger_) return;
-        quill::LogLevel quill_level;
+        if (!_quillLogger) return;
+        quill::LogLevel logLevel;
         switch (level) {
             case LogLevel::TRACE:
-                quill_level = quill::LogLevel::TraceL3;
+                logLevel = quill::LogLevel::TraceL3;
                 break;
             case LogLevel::DEBUG:
-                quill_level = quill::LogLevel::Debug;
+                logLevel = quill::LogLevel::Debug;
                 break;
             case LogLevel::INFO:
-                quill_level = quill::LogLevel::Info;
+                logLevel = quill::LogLevel::Info;
                 break;
             case LogLevel::WARNING:
-                quill_level = quill::LogLevel::Warning;
+                logLevel = quill::LogLevel::Warning;
                 break;
             case LogLevel::ERROR:
-                quill_level = quill::LogLevel::Error;
+                logLevel = quill::LogLevel::Error;
                 break;
             case LogLevel::CRITICAL:
-                quill_level = quill::LogLevel::Critical;
+                logLevel = quill::LogLevel::Critical;
                 break;
             default:
-                quill_level = quill::LogLevel::Info;
+                logLevel = quill::LogLevel::Info;
                 break;
         }
-        quill_logger_->set_log_level(quill_level);
-        current_level_ = level;
+        _quillLogger->set_log_level(logLevel);
+        _logLevel = level;
     }
 
-    LogLevel get_log_level() const { return current_level_; }
+    LogLevel get_log_level() const { return _logLevel; }
 
     // Logging Function Takes message in {} fmt straightaway
     void info(const std::string &message) {
-        if (quill_logger_) {
-            LOG_INFO(quill_logger_, "{}", message);
+        if (_quillLogger) {
+            LOG_INFO(_quillLogger, "{}", message);
         }
     }
     void warn(const std::string &message) {
-        if (quill_logger_) {
-            LOG_WARNING(quill_logger_, "{}", message);
+        if (_quillLogger) {
+            LOG_WARNING(_quillLogger, "{}", message);
         }
     }
     void error(const std::string &message) {
-        if (quill_logger_) {
-            LOG_ERROR(quill_logger_, "{}", message);
+        if (_quillLogger) {
+            LOG_ERROR(_quillLogger, "{}", message);
         }
     }
     void debug(const std::string &message) {
-        if (quill_logger_) {
-            LOG_DEBUG(quill_logger_, "{}", message);
+        if (_quillLogger) {
+            LOG_DEBUG(_quillLogger, "{}", message);
         }
     }
 
@@ -162,7 +163,8 @@ class qLogger {
         }
     }
     qLogger() = default;
-    std::once_flag init_flag_;
-    quill::Logger *quill_logger_ = nullptr;
-    LogLevel current_level_ = LogLevel::INFO;
+
+    std::once_flag _initFlag;
+    quill::Logger *_quillLogger = nullptr;
+    LogLevel _logLevel = LogLevel::INFO;
 };

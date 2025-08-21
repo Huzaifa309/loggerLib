@@ -37,17 +37,17 @@ static quill::Logger *create_logger_for_file(const std::string &log_file,
 }
 }  // namespace
 
-std::once_flag Sharded_Logger::backend_init_flag_;
+std::once_flag ShardedLogger::_backendInitFlag;
 
-void Sharded_Logger::init_backend_once_() {
-    std::call_once(backend_init_flag_, [] { quill::Backend::start(); });
+void ShardedLogger::_init_backend_once() {
+    std::call_once(_backendInitFlag, [] { quill::Backend::start(); });
 }
 
 static quill::LogLevel pick_default_quill_level() {
     return quill::LogLevel::Info;
 }
 
-quill::LogLevel Sharded_Logger::to_quill_level_(LogLevel level) {
+quill::LogLevel ShardedLogger::_to_quill_level(LogLevel level) {
     switch (level) {
         case LogLevel::TRACE:
             return quill::LogLevel::TraceL3;
@@ -66,78 +66,78 @@ quill::LogLevel Sharded_Logger::to_quill_level_(LogLevel level) {
     }
 }
 
-Sharded_Logger::~Sharded_Logger() = default;
+ShardedLogger::~ShardedLogger() = default;
 
-void Sharded_Logger::initialize(uint8_t shard_count,
+void ShardedLogger::initialize(uint8_t shard_count,
                                 const std::string &log_file_prefix,
                                 size_t max_file_size) {
-    init_backend_once_();
+    _init_backend_once();
 
     // Clear any previous state to avoid duplicates on re-initialization
-    shard_loggers_.clear();
-    shard_levels_.clear();
-    shard_loggers_.reserve(shard_count);
-    shard_levels_.reserve(shard_count);
+    _shardLoggers.clear();
+    _shardLevels.clear();
+    _shardLoggers.reserve(shard_count);
+    _shardLevels.reserve(shard_count);
 
-    for (uint8_t shard_id = 0; shard_id < shard_count; ++shard_id) {
+    for (uint8_t shardId = 0; shardId < shard_count; ++shardId) {
         // Generate unique filename per shard
         std::string shard_log_file =
-            fmtquill::format("{}_shard_{}.log", log_file_prefix, shard_id);
+            fmtquill::format("{}_shard_{}.log", log_file_prefix, shardId);
 
         quill::Logger *logger =
             create_logger_for_file(shard_log_file, max_file_size);
 
         // Ensure default level is applied and track per-shard level
-        logger->set_log_level(to_quill_level_(LogLevel::INFO));
+        logger->set_log_level(_to_quill_level(LogLevel::INFO));
 
-        shard_loggers_.emplace_back(logger);
-        shard_levels_.emplace_back(LogLevel::INFO);
+        _shardLoggers.emplace_back(logger);
+        _shardLevels.emplace_back(LogLevel::INFO);
     }
 }
 
 // Forwarders:
-void Sharded_Logger::info(uint8_t shard_id, const std::string &message) {
-    if (shard_id < shard_loggers_.size()) {
-        LOG_INFO(shard_loggers_[shard_id], "{}", message);
+void ShardedLogger::info(uint8_t shardId, const std::string &message) {
+    if (shardId < _shardLoggers.size()) {
+        LOG_INFO(_shardLoggers[shardId], "{}", message);
     }
 }
 
-void Sharded_Logger::warn(uint8_t shard_id, const std::string &message) {
-    if (shard_id < shard_loggers_.size()) {
-        LOG_WARNING(shard_loggers_[shard_id], "{}", message);
+void ShardedLogger::warn(uint8_t shardId, const std::string &message) {
+    if (shardId < _shardLoggers.size()) {
+        LOG_WARNING(_shardLoggers[shardId], "{}", message);
     }
 }
 
-void Sharded_Logger::error(uint8_t shard_id, const std::string &message) {
-    if (shard_id < shard_loggers_.size()) {
-        LOG_ERROR(shard_loggers_[shard_id], "{}", message);
+void ShardedLogger::error(uint8_t shardId, const std::string &message) {
+    if (shardId < _shardLoggers.size()) {
+        LOG_ERROR(_shardLoggers[shardId], "{}", message);
     }
 }
 
-void Sharded_Logger::debug(uint8_t shard_id, const std::string &message) {
-    if (shard_id < shard_loggers_.size()) {
-        LOG_DEBUG(shard_loggers_[shard_id], "{}", message);
+void ShardedLogger::debug(uint8_t shardId, const std::string &message) {
+    if (shardId < _shardLoggers.size()) {
+        LOG_DEBUG(_shardLoggers[shardId], "{}", message);
     }
 }
 
 // Log level control implementations
-void Sharded_Logger::set_log_level(uint8_t shard_id, LogLevel level) {
-    if (shard_id < shard_loggers_.size()) {
-        shard_loggers_[shard_id]->set_log_level(to_quill_level_(level));
-        shard_levels_[shard_id] = level;
+void ShardedLogger::set_log_level(uint8_t shardId, LogLevel level) {
+    if (shardId < _shardLoggers.size()) {
+        _shardLoggers[shardId]->set_log_level(_to_quill_level(level));
+        _shardLevels[shardId] = level;
     }
 }
 
-void Sharded_Logger::set_log_level_all(LogLevel level) {
-    for (size_t i = 0; i < shard_loggers_.size(); ++i) {
-        shard_loggers_[i]->set_log_level(to_quill_level_(level));
-        shard_levels_[i] = level;
+void ShardedLogger::set_log_level_all(LogLevel level) {
+    for (size_t i = 0; i < _shardLoggers.size(); ++i) {
+        _shardLoggers[i]->set_log_level(_to_quill_level(level));
+        _shardLevels[i] = level;
     }
 }
 
-Sharded_Logger::LogLevel Sharded_Logger::get_log_level(uint8_t shard_id) const {
-    if (shard_id < shard_levels_.size()) {
-        return shard_levels_[shard_id];
+ShardedLogger::LogLevel ShardedLogger::get_log_level(uint8_t shardId) const {
+    if (shardId < _shardLevels.size()) {
+        return _shardLevels[shardId];
     }
     return LogLevel::INFO;  // Default fallback
 }

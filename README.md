@@ -20,8 +20,8 @@ If you just want to use the library in your project:
    
    int main() {
        // Initialize once; 10MB rotation enabled
-       qLogger::getInstance().initialize("my_app.log", LogLevel::DEBUG, 10 * 1024 * 1024);
-       qLogger::getInstance().info_fast("Hello {} from LoggerLib!", "World");
+       qLogger::get().initialize("my_app.log", LogLevel::DEBUG, 10 * 1024 * 1024);
+       qLogger::get().info_fast("Hello {} from LoggerLib!", "World");
        return 0;
    }
    ```
@@ -32,9 +32,9 @@ If you just want to use the library in your project:
    
    int main() {
        // Creates logs: logs/app_shard_0.log, logs/app_shard_1.log, logs/app_shard_2.log
-       Sharded_Logger::getInstance().initialize(3, "logs/app", 10 * 1024 * 1024);
-       Sharded_Logger::getInstance().set_log_level_all(Sharded_Logger::LogLevel::DEBUG);
-       Sharded_Logger::getInstance().info_fast(0, "Shard {} hello", 0);
+       ShardedLogger::get().initialize(3, "logs/app", 10 * 1024 * 1024);
+       ShardedLogger::get().set_log_level_all(ShardedLogger::LogLevel::DEBUG);
+       ShardedLogger::get().info_fast(0, "Shard {} hello", 0);
        return 0;
    }
    ```
@@ -99,23 +99,23 @@ Header-only interface for simple logging into a single file.
 
 int main() {
     // Initialize once; pass optional log level and rotation size (bytes)
-    qLogger::getInstance().initialize("logs/my_app.log", LogLevel::INFO, 10 * 1024 * 1024);
+    qLogger::get().initialize("logs/my_app.log", LogLevel::INFO, 10 * 1024 * 1024);
 
     // Basic logging
-    qLogger::getInstance().info("Application started");
-    qLogger::getInstance().warn("This is a warning");
-    qLogger::getInstance().error("An error occurred");
-    qLogger::getInstance().debug("Debug information");
+    qLogger::get().info("Application started");
+    qLogger::get().warn("This is a warning");
+    qLogger::get().error("An error occurred");
+    qLogger::get().debug("Debug information");
 
     // FMT-style logging (format string can be a variable or literal)
     int user_id = 42;
     std::string username = "alice";
-    qLogger::getInstance().info_fast("User {} logged in with id {}", username, user_id);
+    qLogger::get().info_fast("User {} logged in with id {}", username, user_id);
 
     // Manual log level control
-    qLogger::getInstance().set_log_level(LogLevel::WARNING);
-    qLogger::getInstance().info("This will NOT be logged");
-    qLogger::getInstance().warn("This WILL be logged");
+    qLogger::get().set_log_level(LogLevel::WARNING);
+    qLogger::get().info("This will NOT be logged");
+    qLogger::get().warn("This WILL be logged");
 
     return 0;
 }
@@ -124,7 +124,7 @@ int main() {
 - Log levels (`LogLevel`) are: TRACE, DEBUG, INFO, WARNING, ERROR, CRITICAL.
 - Rotation is enabled when `max_file_size > 0`; otherwise logs append to a single file.
 
-### Sharded Logging (Sharded_Logger)
+### Sharded Logging (ShardedLogger)
 
 High-performance logging across multiple files (one per shard). Shard IDs are 0-based.
 
@@ -134,20 +134,20 @@ High-performance logging across multiple files (one per shard). Shard IDs are 0-
 
 int main() {
     // Initialize 3 shards: logs/app_shard_0.log, logs/app_shard_1.log, logs/app_shard_2.log
-    Sharded_Logger::getInstance().initialize(3, "logs/app", 10 * 1024 * 1024);
+    ShardedLogger::get().initialize(3, "logs/app", 10 * 1024 * 1024);
 
     // Per-shard level control (defaults to INFO on init)
-    Sharded_Logger::getInstance().set_log_level(0, Sharded_Logger::LogLevel::INFO);
-    Sharded_Logger::getInstance().set_log_level(1, Sharded_Logger::LogLevel::DEBUG);
-    Sharded_Logger::getInstance().set_log_level_all(Sharded_Logger::LogLevel::DEBUG); // set all at once
+    ShardedLogger::get().set_log_level(0, ShardedLogger::LogLevel::INFO);
+    ShardedLogger::get().set_log_level(1, ShardedLogger::LogLevel::DEBUG);
+    ShardedLogger::get().set_log_level_all(ShardedLogger::LogLevel::DEBUG); // set all at once
 
     // Log to different shards
-    Sharded_Logger::getInstance().info(0, "Shard 0 started");
-    Sharded_Logger::getInstance().debug(1, "Shard 1 debug message");
+    ShardedLogger::get().info(0, "Shard 0 started");
+    ShardedLogger::get().debug(1, "Shard 1 debug message");
 
     // Ultra-fast fmt-style logging per shard
     for (uint8_t id = 0; id < 3; ++id) {
-        Sharded_Logger::getInstance().info_fast(id, "Shard {} processed batch {}", id, 100 + id);
+        ShardedLogger::get().info_fast(id, "Shard {} processed batch {}", id, 100 + id);
     }
 
     return 0;

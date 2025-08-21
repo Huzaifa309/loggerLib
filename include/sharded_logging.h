@@ -14,19 +14,19 @@
 #include "quill/sinks/FileSink.h"
 #include "quill/sinks/RotatingFileSink.h"
 
-class Sharded_Logger {
+class ShardedLogger {
    public:
-    static Sharded_Logger &getInstance() {
-        static Sharded_Logger instance;
-        return instance;
+    static ShardedLogger &get() {
+        static ShardedLogger shardedLogger;
+        return shardedLogger;
     }
 
-    Sharded_Logger(const Sharded_Logger &) = delete;
-    Sharded_Logger &operator=(const Sharded_Logger &) = delete;
-    Sharded_Logger(Sharded_Logger &&) = delete;
-    Sharded_Logger &operator=(Sharded_Logger &&) = delete;
+    ShardedLogger(const ShardedLogger &) = delete;
+    ShardedLogger &operator=(const ShardedLogger &) = delete;
+    ShardedLogger(ShardedLogger &&) = delete;
+    ShardedLogger &operator=(ShardedLogger &&) = delete;
 
-    ~Sharded_Logger();
+    ~ShardedLogger();
 
     // Use shared LogLevel but keep the same API surface
     using LogLevel = ::LogLevel;
@@ -35,55 +35,58 @@ class Sharded_Logger {
                     size_t max_file_size = 0);
 
     // Clean interface methods
-    void info(uint8_t shard_id, const std::string &message);
-    void warn(uint8_t shard_id, const std::string &message);
-    void error(uint8_t shard_id, const std::string &message);
-    void debug(uint8_t shard_id, const std::string &message);
+    void info(uint8_t shardId, const std::string &message);
+    void warn(uint8_t shardId, const std::string &message);
+    void error(uint8_t shardId, const std::string &message);
+    void debug(uint8_t shardId, const std::string &message);
 
     // Ultra-fast logging: fmt-style, variadic, user does not need to include
     // fmt/quill
     template <typename... Args>
-    void info_fast(uint8_t shard_id, const char *fmt, Args &&...args) {
-        if (shard_id < shard_loggers_.size()) {
-            info(shard_id,
+    void info_fast(uint8_t shardId, const char *fmt, Args &&...args) {
+        if (shardId < _shardLoggers.size()) {
+            info(shardId,
                  fmtquill::vformat(fmt, fmtquill::make_format_args(args...)));
         }
     }
+
     template <typename... Args>
-    void warn_fast(uint8_t shard_id, const char *fmt, Args &&...args) {
-        if (shard_id < shard_loggers_.size()) {
-            warn(shard_id,
+    void warn_fast(uint8_t shardId, const char *fmt, Args &&...args) {
+        if (shardId < _shardLoggers.size()) {
+            warn(shardId,
                  fmtquill::vformat(fmt, fmtquill::make_format_args(args...)));
         }
     }
+
     template <typename... Args>
-    void error_fast(uint8_t shard_id, const char *fmt, Args &&...args) {
-        if (shard_id < shard_loggers_.size()) {
-            error(shard_id,
+    void error_fast(uint8_t shardId, const char *fmt, Args &&...args) {
+        if (shardId < _shardLoggers.size()) {
+            error(shardId,
                   fmtquill::vformat(fmt, fmtquill::make_format_args(args...)));
         }
     }
+
     template <typename... Args>
-    void debug_fast(uint8_t shard_id, const char *fmt, Args &&...args) {
-        if (shard_id < shard_loggers_.size()) {
-            debug(shard_id,
+    void debug_fast(uint8_t shardId, const char *fmt, Args &&...args) {
+        if (shardId < _shardLoggers.size()) {
+            debug(shardId,
                   fmtquill::vformat(fmt, fmtquill::make_format_args(args...)));
         }
     }
 
     // Log level control methods
-    void set_log_level(uint8_t shard_id, LogLevel level);
+    void set_log_level(uint8_t shardId, LogLevel level);
     void set_log_level_all(LogLevel level);
-    LogLevel get_log_level(uint8_t shard_id) const;
+    LogLevel get_log_level(uint8_t shardId) const;
 
    private:
-    Sharded_Logger() = default;
+    ShardedLogger() = default;
 
-    static void init_backend_once_();
-    static std::once_flag backend_init_flag_;
+    static void _init_backend_once();
+    static std::once_flag _backendInitFlag;
 
-    static quill::LogLevel to_quill_level_(LogLevel level);
+    static quill::LogLevel _to_quill_level(LogLevel level);
 
-    std::vector<quill::Logger *> shard_loggers_;
-    std::vector<LogLevel> shard_levels_;
+    std::vector<quill::Logger *> _shardLoggers;
+    std::vector<LogLevel> _shardLevels;
 };
