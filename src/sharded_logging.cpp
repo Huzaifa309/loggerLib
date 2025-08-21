@@ -69,8 +69,8 @@ quill::LogLevel ShardedLogger::_to_quill_level(LogLevel level) {
 ShardedLogger::~ShardedLogger() = default;
 
 void ShardedLogger::initialize(uint8_t shard_count,
-                                const std::string &log_file_prefix,
-                                size_t max_file_size) {
+                               const std::string &log_file_prefix,
+                               size_t max_file_size) {
     _init_backend_once();
 
     // Clear any previous state to avoid duplicates on re-initialization
